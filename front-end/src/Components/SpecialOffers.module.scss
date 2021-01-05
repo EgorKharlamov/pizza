@@ -1,0 +1,131 @@
+@import "../styles/vars";
+
+.special {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  pointer-events: all;
+  overflow: hidden;
+  min-height: 250px;
+  border-radius: 10px;
+  background-color: $bg-med;
+  box-shadow: 0 0 3px 1px $bg-dark;
+  transition: $trans;
+
+  &:hover {
+    box-shadow: 0 0 5px 2px $bg-dark;
+    .pic {
+      filter: contrast(1.5);
+    }
+  }
+
+  &Title {
+    text-transform: uppercase;
+    font-size: 3rem;
+  }
+
+  &Text {
+    font-size: 1.3rem;
+    line-height: 1.6rem;
+    width: 500px;
+    display: -webkit-box;
+    text-align: center;
+    -webkit-line-clamp: 2;
+    margin: 0;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+  }
+
+  @media (max-width: 1600px) {
+    margin: 0 20px
+  }
+}
+
+.pic {
+  position: absolute;
+  height: 800px;
+  top: -200px;
+  left: -100px;
+  transition: $trans;
+  filter: contrast(1);
+
+}
+
+.title {
+  margin-left: 20px;
+  text-transform: uppercase;
+}
+
+.right {
+  margin-right: 180px;
+  z-index: 1;
+}
+
+@media (max-width: 1500px) {
+  .right {
+    margin-right: 100px;
+  }
+  .pic {
+    height: 600px;
+    top: -160px;
+    left: -70px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .right {
+    margin-right: 10px;
+  }
+  .pic {
+    height: 500px;
+    top: -120px;
+    left: -80px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .title {
+    text-align: center;
+  }
+
+  .special {
+    justify-content: center;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+    background-color: $bg-text;
+  }
+
+  .pic {
+    height: 1200px;
+    top: -420px;
+    left: -180px;
+    filter: blur(5px);
+  }
+}
+
+@media (max-width: 700px) {
+  .special {
+
+    &Title {
+      font-size: 1.8rem;
+    }
+
+    &Text {
+      font-size: 1rem;
+      width: 280px;
+    }
+  }
+
+  .right {
+    width: 300px
+  }
+}

@@ -1,0 +1,11 @@
+@import "reset";
+@import "functions";
+@import "mixins";
+@import "html";
+@import "defaults";
+
+.wrapper {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+

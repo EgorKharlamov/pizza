@@ -1,0 +1,30 @@
+.logo {
+  font-size: 3rem;
+  max-width: 12rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 3rem;
+  align-self: center;
+}
+
+.pic {
+  height: 45px;
+}
+
+@media (max-width: 550px) {
+  .text {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 450px) {
+  .text {
+    display: none;
+  }
+  .pic {
+    padding: 0 10px;
+  }
+}

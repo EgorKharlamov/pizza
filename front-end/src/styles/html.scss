@@ -1,0 +1,34 @@
+@import "mixins";
+
+:root {
+  @include defineColorHSL(--color-black, 0,0%,0%);
+  @include defineColorHSL(--color-white, 0,0%,100%);
+  @include defineColorHSL(--color-gray, 0,0%,50%);
+  @include defineColorHSL(--color-red, 0,100%,40%);
+  @include defineColorHSL(--color-green, 126,70%,29%);
+  @include defineColorHSL(--color-bg-light, 159, 48%, 97%);
+  @include defineColorHSL(--color-bg-med, 199, 18%, 94%);
+  @include defineColorHSL(--color-bg-dark, 190,7%,80%);
+  @include defineColorHSL(--color-bg-text, 0,0%,100%);
+  @include defineColorHSL(--color-accent, 17,74%,48%);
+
+  @include defineColorHSL(--color-text-main, 0, 81%, 16%);
+  @include defineColorHSL(--color-text-secondary, 0, 1%, 93%);
+}
+
+
+:root[data-theme="dark"] {
+  @include defineColorHSL(--color-black, 0,0%,0%);
+  @include defineColorHSL(--color-white, 0,0%,100%);
+  @include defineColorHSL(--color-gray, 0,0%,50%);
+  @include defineColorHSL(--color-red, 0,100%,40%);
+  @include defineColorHSL(--color-green, 126,70%,29%);
+  @include defineColorHSL(--color-bg-light, 216, 20%, 18%);
+  @include defineColorHSL(--color-bg-med, 199, 18%, 14%);
+  @include defineColorHSL(--color-bg-dark, 190,7%,10%);
+  @include defineColorHSL(--color-bg-text, 0,0%,0%);
+  @include defineColorHSL(--color-accent, 17,74%,38%);
+
+  @include defineColorHSL(--color-text-main, 0, 1%, 76%);
+  @include defineColorHSL(--color-text-secondary, 0, 1%, 76%);
+}

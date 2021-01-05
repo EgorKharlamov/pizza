@@ -1,0 +1,19 @@
+@import "functions";
+
+$accent: alpha(--color-accent);
+$text-color: alpha(--color-text-main);
+$text-color-secondary: alpha(--color-white);
+$bg-light: alpha(--color-bg-light);
+$bg-dark: alpha(--color-bg-dark);
+$bg-med: alpha(--color-bg-med);
+$bg-text: alpha(--color-bg-text, .4);
+$bg-text-dark: alpha(--color-black, .7);
+$border-color: alpha(--color-accent, .5);
+$opt-hover-color: alpha(--color-accent, .15);
+$black: alpha(--color-black, .5);
+$gray: alpha(--color-gray);
+$red: alpha(--color-red);
+$green: alpha(--color-green);
+
+$trans: all .3s ease;
+

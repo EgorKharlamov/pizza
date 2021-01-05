@@ -1,0 +1,91 @@
+@import "../../styles/vars";
+
+$input-pdt: .5rem;
+$input-pdl: 1rem;
+$input-pd: $input-pdt $input-pdl;
+
+.label {
+  position: relative;
+  display: inline-block;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+
+  &Input {
+    padding: $input-pd;
+    outline: none;
+    border: 1px solid $black;
+    background-color: $bg-med;
+    color: $text-color;
+
+    &.error {
+      animation: errorInput 5s;
+    }
+
+    &:focus {
+      border: 1px solid $accent;
+      outline: none;
+    }
+  }
+
+  &Text {
+    position: absolute;
+    font-size: 1rem;
+    top: 1rem;
+    left: 0;
+    margin-top: $input-pdt;
+    margin-left: $input-pdl;
+    color: $gray;
+    transition: $trans;
+    pointer-events: none;
+
+    &Mini {
+      top: 0;
+      left: 5px;
+      margin-top: 0;
+      margin-left: 0;
+      font-style: italic;
+    }
+  }
+}
+
+.errorText {
+  position: absolute;
+  display: block;
+  font-size: .8rem;
+  width: 100%;
+  bottom: 0;
+  left: 5px;
+  color: $red;
+  overflow: hidden;
+  animation: fadeOut 5s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes errorInput {
+  0% {
+    border: 1px solid $red;
+    box-shadow: 0 0 2px 0 $red;
+  }
+  100% {
+    border: 1px solid $accent;
+    box-shadow: none;
+  }
+
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
