@@ -9,20 +9,25 @@ import Goods from './Pages/Goods';
 import ScrollTopArrow from './Components/ScrollTopArrow';
 import Pizza from './Pages/Pizza';
 import ToastsContainer from './Components/ToastsContainer';
+import AllModalContainer from './Components/Modals/AllModalContainer';
+import AuthTry from './Components/HOC/AuthTry';
+import SwapTheme from './Components/SwapTheme';
 
 function App() {
   return (
-    <>
+    <AuthTry>
       <ToastsContainer />
       <Navbar />
+      <SwapTheme />
       <Switch>
         <Route exact path={routesStatic.home} component={Home} />
         <Route path={routesStatic.order} component={Order} />
         <Route exact path={routesStatic.goods} component={Goods} />
         <Route path={`${routesStatic.goods}/:id`} component={Pizza} />
       </Switch>
+      <AllModalContainer />
       <ScrollTopArrow />
-    </>
+    </AuthTry>
   );
 }
 

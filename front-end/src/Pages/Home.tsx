@@ -1,15 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import pizzaPic from '../assets/img/pizza.png';
 import SpecialOffers from '../Components/SpecialOffers';
-import { IState } from '../Store';
 
 function Home() {
   const specialOffer = [{
     id: 0, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
-  }];
-  const kek = useSelector<IState, string|undefined>((state) => state.user.name);
-  console.log('HOME page, name: ', kek);
+  },
+  {
+    id: 1, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 2, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 3, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 4, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 6, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 5, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 7, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  }, {
+    id: 8, title: 'Get my PIZZZZA!', description: 'long text about offer long text about offer long text about offer long text about offer long text about offer ', img: pizzaPic,
+  },
+  ];
 
   return (
     <div className='wrapper'>

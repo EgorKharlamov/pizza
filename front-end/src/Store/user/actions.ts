@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { IUser } from './types';
+import { IUserState } from './types';
 import ISignUpDto from '../../Api/Dto/Requests/SignUpDto';
 import ISignInDto from '../../Api/Dto/Requests/SignInDto';
 
@@ -13,9 +13,9 @@ enum Type {
 
 const signUp = createAction<ISignUpDto>(Type.SIGN_UP);
 const signIn = createAction<ISignInDto>(Type.SIGN_IN);
-const getUser = createAction<IUser>(Type.GET_USER);
-const setUser = createAction<IUser>(Type.SET_USER);
-const logOut = createAction<IUser>(Type.LOG_OUT);
+const getUser = createAction<string>(Type.GET_USER);
+const setUser = createAction<IUserState>(Type.SET_USER);
+const logOut = createAction(Type.LOG_OUT);
 
 export const UserActions = {
   Type,

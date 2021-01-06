@@ -13,13 +13,12 @@ function Input({
   type = 'text', valueDefault, label, emitFunc, error,
 }: IInput) {
   const [focus, setFocus] = useState(false);
-  const [inputValue, setValue] = useState('');
-  const onChangeHandler = ({ target: { value } }:ChangeEvent<HTMLInputElement>) => {
-    setValue(value);
-    emitFunc(value);
+
+  const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
+    emitFunc(e.target.value);
   };
   const labelTextClassNames = classNames({
-    [s.labelTextMini]: focus || inputValue,
+    [s.labelTextMini]: focus || valueDefault,
     [s.labelText]: true,
   });
   const inputClassNames = classNames({
@@ -32,7 +31,7 @@ function Input({
       <span className={labelTextClassNames}>{label}</span>
       <input
         type={type}
-        defaultValue={valueDefault}
+        value={valueDefault}
         className={inputClassNames}
         onFocus={() => setFocus(!focus)}
         onBlur={() => setFocus(!focus)}

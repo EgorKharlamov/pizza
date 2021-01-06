@@ -1,42 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPizzaSlice } from '@fortawesome/free-solid-svg-icons/faPizzaSlice';
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { faUserCheck, faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import Logo from './Logo';
-import { routesStatic, ThemeType } from '../types';
+import { ModalsType, routesStatic } from '../types';
 import s from './Navbar.module.scss';
 import Dropdown from './UI/Dropdown';
+import { IState } from '../Store';
+import { IUserState } from '../Store/user/types';
+import Button from './UI/Button';
+import { ModalActions } from '../Store/modals/actions';
+import { UserActions } from '../Store/user/actions';
 
 function Navbar() {
-  const [swapTheme, setSwapTheme] = useState('');
+  const dispatch = useDispatch();
+  const user: IUserState = useSelector<IState, IUserState>((state) => state.user);
+
+  const openModalSignIn = () => {
+    dispatch(ModalActions.modalToggle(ModalsType.signInModal));
+  };
+  const openModalSignUp = () => {
+    dispatch(ModalActions.modalToggle(ModalsType.signUpModal));
+  };
   const logOut = () => {
-    console.log('log out function!');
-  };
-
-  const getHtmlTheme = () => {
-    const theme = document.getElementsByTagName('html')[0].getAttribute('data-theme');
-    return theme !== ThemeType.dark ? ThemeType.light : ThemeType.dark;
-  };
-
-  const setRootTheme = () => {
-    swapTheme !== ThemeType.dark ? setSwapTheme(ThemeType.dark) : setSwapTheme(ThemeType.light);
-    document.getElementsByTagName('html')[0].setAttribute('data-theme',
-      swapTheme !== ThemeType.light ? ThemeType.dark : ThemeType.light);
+    dispatch(UserActions.logOut());
   };
 
   const location = useLocation();
-  const dropdownOptions = [{ name: `Swap theme to ${getHtmlTheme() === ThemeType.light ? ThemeType.dark : ThemeType.light}`, functionToEmit: setRootTheme }, { name: 'Logout', functionToEmit: logOut }];
-
-  useEffect(() => {
-    const currentTheme = getHtmlTheme();
-    if (!currentTheme || currentTheme === ThemeType.light) {
-      setSwapTheme(ThemeType.dark);
-    } else {
-      setSwapTheme(ThemeType.light);
-    }
-  }, []);
+  const dropdownOptions = [{ name: 'Logout', functionToEmit: logOut }];
 
   return (
     <div className={s.navbarContainer}>
@@ -69,12 +63,19 @@ function Navbar() {
               </Link>
             </li>
 
-            <Dropdown
-              label='Account'
-              icon={faUser}
-              options={dropdownOptions}
-              isAccount
-            />
+            {user.id! > -1 ? (
+              <Dropdown
+                label='Account'
+                icon={faUserCircle}
+                options={dropdownOptions}
+                isAccount
+              />
+            ) : (
+              <>
+                <Button label='Sign in' clickFunc={openModalSignIn} transparent icon={faUserCheck} />
+                <Button label='Sign up' clickFunc={openModalSignUp} transparent icon={faUserPlus} />
+              </>
+            )}
           </ul>
         </div>
       </div>

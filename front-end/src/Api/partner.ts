@@ -1,5 +1,6 @@
 import ISignUpDto from './Dto/Requests/SignUpDto';
 import ISignInDto from './Dto/Requests/SignInDto';
+import IGetGoodByIdDto from './Dto/Requests/GetGoodByIdDto';
 
 export enum ApiPartnerEndpoint {
   signIn = 'signIn',
@@ -22,7 +23,7 @@ export interface ApiPartnerRequestDtos {
   [ApiPartnerEndpoint.profile]: undefined
   [ApiPartnerEndpoint.signUp]: ISignUpDto
   [ApiPartnerEndpoint.getGoods]: undefined
-  [ApiPartnerEndpoint.getGoodById]: undefined
+  [ApiPartnerEndpoint.getGoodById]: IGetGoodByIdDto
 }
 
 export interface ApiPartnerResponseDtos {

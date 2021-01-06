@@ -1,39 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import pizza from '../assets/img/pizza.png';
 import Card from './Card';
 import s from './CardsList.module.scss';
 import { routesStatic } from '../types';
+import { GoodActions } from '../Store/goods/actions';
+import { IGoodsState } from '../Store/goods/types';
+import { IState } from '../Store';
 
 function CardsList() {
-  const cards = [{
-    id: 0, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }, {
-    id: 1, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }, {
-    id: 2, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }, {
-    id: 3, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }, {
-    id: 4, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }, {
-    id: 5, img: pizza, title: 'first pizza', description: 'very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm very tasty pizza mmmm ', price: 3.99,
-  }];
+  const dispatch = useDispatch();
+  const { list } = useSelector<IState, IGoodsState>((state) => state.good);
+
+  useEffect(() => {
+    dispatch(GoodActions.getGoodsList());
+  }, []);
+
   return (
     <div className={s.cardsList}>
-      {cards.map((el) => (
+      {list.length ? list.map((el) => (
         <Link
           key={el.id}
           to={`${routesStatic.goods}/${el.id}`}
         >
           <Card
-            img={el.img}
-            title={el.title}
+            img={pizza}
+            title={el.name}
             description={el.description}
             price={el.price}
           />
         </Link>
-      ))}
+      )) : (<>load...</>)}
     </div>
   );
 }

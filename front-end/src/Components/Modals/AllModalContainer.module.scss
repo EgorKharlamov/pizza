@@ -1,0 +1,53 @@
+@import '../../styles/vars';
+
+.container {
+  z-index: 99999;
+  position: fixed;
+  background-color: rgba(#000, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  padding: 50px 0;
+}
+
+.modal {
+  width: 400px;
+  max-height: 100%;
+  border-radius: 10px;
+  padding: 50px;
+  overflow-y: auto;
+  background-color: $bg-light;
+  position: relative;
+  display: flex;
+
+  @media (max-width: 560px) {
+    $margin: 150px;
+
+    width: calc(100% - #{$margin});
+    height: calc(100% - #{$margin});
+  }
+}
+
+.icon {
+  cursor: pointer;
+  color: $text-color;
+  transition: $trans;
+
+  &Times {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .6rem 1rem;
+    font-size: 1.8rem;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+}

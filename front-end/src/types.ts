@@ -10,5 +10,6 @@ export enum ThemeType {
 }
 
 export enum ModalsType {
-
+  signInModal = 'signInModal',
+  signUpModal = 'signUpModal',
 }

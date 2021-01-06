@@ -1,0 +1,67 @@
+@import "../styles/vars";
+
+.container {
+  position: relative;
+  display: grid;
+  grid-template:
+            "a a b b" 1fr
+            "c c c c" 40px / auto auto;
+  grid-column-gap: 15px;
+  grid-row-gap: 20px;
+  margin: 40px;
+  border: 2px solid $accent;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.section {
+
+  &Left {
+    text-align: center;
+    font-size: 1rem;
+    grid-area: a;
+  }
+
+  &Right {
+    grid-area: b;
+  }
+}
+
+.pic {
+  max-height: 500px;
+  transition: $trans;
+}
+
+.span {
+  display: block;
+}
+
+.footer {
+  grid-area: c;
+  display: grid;
+}
+
+@media (max-width: 900px) {
+  .pic {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 740px) {
+  .pic {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pic {
+    max-height: 200px;
+  }
+  .container {
+    grid-template:
+            "a" 1fr
+            "b" 1fr
+            "c" 40px / auto;
+  }
+}
+

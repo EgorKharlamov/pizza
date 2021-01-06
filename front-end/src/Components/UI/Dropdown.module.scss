@@ -42,6 +42,7 @@
 
   &Text {
     color: $text-color;
+    padding-top: 2px;
 
     &Hide {
       @media (max-width: 900px) {

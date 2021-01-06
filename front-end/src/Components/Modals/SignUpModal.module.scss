@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  position: relative;
+
+}
+
+.btn {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 30px;
+}

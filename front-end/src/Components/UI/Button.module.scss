@@ -4,6 +4,8 @@
   padding: .5rem 1.2rem;
   font-size: 1.2rem;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
   border: none;
   outline: none;
   cursor: pointer;
@@ -14,10 +16,25 @@
   }
 
   &:hover {
-    filter: brightness(1.1)
+    filter: brightness(1.1);
+
+    & .buttonIcon {
+      color: $accent;
+    }
   }
 }
 
+.label {
+  margin-right: 8px;
+  margin-top: 2px;
+  width: 100%;
+}
+
+.buttonIcon {
+  color: $text-color;
+  transition: $trans;
+  font-size: 1.7rem;
+}
 .primary {
   background-color: $accent;
   color: $text-color-secondary;
@@ -27,4 +44,22 @@
   color: $text-color;
   background-color: $bg-med;
   border: 1px solid $bg-dark;
+}
+
+.transparent {
+  background-color: transparent;
+  color: $text-color;
+
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.buttonWithIcon {
+  padding: .5rem .9rem;
+  @media (max-width: 900px) {
+    .label {
+      display: none;
+    }
+  }
 }

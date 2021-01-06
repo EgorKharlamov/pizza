@@ -1,5 +1,5 @@
-export interface IUser {
-  id?: number
+export interface IUserState {
+  id: number
   email: string
   name?: string
   phone?: number

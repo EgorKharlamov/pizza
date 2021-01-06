@@ -2,15 +2,23 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { rootReducer } from './rootReducer';
 import rootSaga from './rootSaga';
-import { IUser } from './user/types';
+import { IUserState } from './user/types';
 import { initialStateUser } from './user/initialState';
+import { IModalState } from './modals/types';
+import { initialStateModal } from './modals/initialState';
+import { IGoodsState } from './goods/types';
+import { initialStateGoods } from './goods/initialState';
 
 export interface IState {
-  user: IUser
+  user: IUserState
+  modal: IModalState
+  good: IGoodsState
 }
 
 export const initialState = {
   user: { ...initialStateUser },
+  modal: { ...initialStateModal },
+  good: { ...initialStateGoods },
 };
 
 const bindMiddleware = (middleware:any) => {

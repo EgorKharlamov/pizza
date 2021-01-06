@@ -1,6 +1,6 @@
-import { IUser } from './types';
+import { IUserState } from './types';
 
-export const initialStateUser: IUser = {
+export const initialStateUser: IUserState = {
   id: -1,
   email: '',
   name: 'Guest',
