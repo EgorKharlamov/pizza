@@ -1,24 +1,26 @@
-import {
-  takeEvery,
-} from '@redux-saga/core/effects';
+import { call, takeEvery } from '@redux-saga/core/effects';
 import { Action } from 'redux-actions';
-import axios from 'axios';
-import { ISignIn } from '../../Api/Dto/SignIn';
-import { ISignUp } from '../../Api/Dto/SignUp';
+import Cookies from 'universal-cookie';
 import { UserActions } from './actions';
+import ISignUpDto from '../../Api/Dto/Requests/SignUpDto';
+import ISignInDto from '../../Api/Dto/Requests/SignInDto';
+import requester from '../../Api';
+import { ApiPartnerEndpoint } from '../../Api/partner';
 
-function* signUpUserWorker(action: Action<ISignUp>) {
+function* signUpUserWorker(action: Action<ISignUpDto>) {
   try {
     yield console.log('pow');
   } catch (e) { console.log(e); }
 }
 
-function* signInUserWorker(action: Action<ISignIn>) {
-  const url = process.env.NODE_ENV === 'development' ? 'http://localhost:2310/api/v1/user' : 'http://localhost/api/user';
+function* signInUserWorker(action: Action<ISignInDto>) {
   try {
-    yield console.log('sign in');
-    const req = axios.put(url, { ...action.payload });
-    console.log('saga req', req);
+    const { access_token } = yield call(requester, ApiPartnerEndpoint.signIn,
+      { ...action.payload });
+    if (access_token) {
+      const cookies = new Cookies();
+      cookies.set('auth', access_token, { path: '/' });
+    }
   } catch (e) {
     console.log(e);
   }
