@@ -6,4 +6,8 @@ export default class SignUpDto {
 
   @ApiProperty({ type: 'string' })
   pass: string;
+  @ApiProperty({ type: 'string' })
+  passRepeat: string;
+  @ApiProperty({ type: 'number' })
+  phone: number;
 }

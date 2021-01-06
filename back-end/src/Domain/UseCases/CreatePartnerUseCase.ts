@@ -12,13 +12,24 @@ export default class CreatePartnerUseCase {
     try {
       await this.validate(request);
       const passHash = PartnerEntity.hashPassword(request.pass);
-      return this.userRepository.createUser(request.email, passHash);
+      return this.userRepository.createUser(
+        request.email,
+        passHash,
+        request.phone
+      );
     } catch (e) {
       throw e;
     }
   }
 
   async validate(request: CreatePartnerRequest) {
+    if (request.pass !== request.passRepeat) {
+      throw new DomainValidationError(
+        DomainValidationErrorTypes.notEqual,
+        'pass',
+        'not equal password and password repeat'
+      );
+    }
     const user = await this.userRepository.findUserByEmail(request.email);
     if (user) {
       throw new DomainValidationError(

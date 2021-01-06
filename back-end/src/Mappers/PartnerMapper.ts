@@ -1,9 +1,9 @@
-import PartnerEntity, { Address } from '../Domain/Entities/PartnerEntity';
+import PartnerEntity, { IAddress } from '../Domain/Entities/PartnerEntity';
 import PartnerDto from '../Dtos/Objects/PartnerDto';
 import UserOrm from '../Orm/User.orm';
 
-const addressParser = (address: string): Address => {
-  const parsed: Address = JSON.parse(address);
+export const addressParser = (address: string): IAddress => {
+  const parsed: IAddress = JSON.parse(address);
   return parsed;
 };
 
@@ -13,6 +13,7 @@ export default class PartnerMapper {
       id: orm.id,
       email: orm.email,
       password: orm.password,
+      phone: orm.phone,
       name: orm.name,
       balance: orm.balance,
       address: orm.address ? addressParser(orm.address) : undefined,
@@ -25,6 +26,7 @@ export default class PartnerMapper {
     return {
       id: user.id as number,
       email: user.email,
+      phone: user.phone,
       name: user.name,
       balance: user.balance,
       address: user.address,

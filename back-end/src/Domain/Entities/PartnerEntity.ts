@@ -4,11 +4,11 @@ import { UniqueIdentifier } from '../types';
 
 const passwordSalt = process.env.USER_PASS_SALT;
 
-export type Address = {
+export interface IAddress {
   street: string;
   building: string;
   room: number;
-};
+}
 
 export enum UserType {
   guest = 'guest',
@@ -24,9 +24,10 @@ export default class PartnerEntity extends BaseEntity<PartnerEntity> {
   readonly id: UniqueIdentifier;
   email: string;
   password: string;
+  phone: number;
   name?: string = PartnerEntity.defaults.name;
   balance?: number = PartnerEntity.defaults.balance;
-  address?: Address;
+  address?: IAddress;
   dateRegister: Date;
   dateModify?: Date;
 

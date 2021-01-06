@@ -1,11 +1,17 @@
 import { UniqueIdentifier } from '../types';
 import PartnerEntity from '../Entities/PartnerEntity';
+import GoodsEntity from '../Entities/GoodsEntity';
 
 export default interface IPartnerRepository {
-  createUser(email: string, password: string): Promise<PartnerEntity>;
+  createUser(
+    email: string,
+    password: string,
+    phone: number
+  ): Promise<PartnerEntity>;
 
   findUserByEmail(email: string): Promise<PartnerEntity | undefined>;
   findUserById(id: UniqueIdentifier): Promise<PartnerEntity | undefined>;
 
-  getOrdersHistory(userId: UniqueIdentifier): Promise<any>;
+  getGoods(): Promise<GoodsEntity[]>;
+  getGoodById(id: number): Promise<GoodsEntity | undefined>;
 }

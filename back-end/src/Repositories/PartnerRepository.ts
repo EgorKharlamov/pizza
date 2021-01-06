@@ -5,15 +5,23 @@ import { UniqueIdentifier } from '../Domain/types';
 import PartnerEntity from '../Domain/Entities/PartnerEntity';
 import UserOrm from '../Orm/User.orm';
 import PartnerMapper from '../Mappers/PartnerMapper';
+import GoodsOrm from '../Orm/Goods.orm';
+import GoodsEntity from '../Domain/Entities/GoodsEntity';
+import GoodsMapper from '../Mappers/GoodsMapper';
 
 @Injectable()
 export default class PartnerRepository implements IPartnerRepository {
   constructor(private connection: Connection) {}
 
-  async createUser(email: string, password: string): Promise<PartnerEntity> {
+  async createUser(
+    email: string,
+    password: string,
+    phone: number
+  ): Promise<PartnerEntity> {
     const user = this.connection.manager.create(UserOrm, {
       email,
       password,
+      phone,
       date_register: new Date(),
     });
     await user.save();
@@ -37,7 +45,16 @@ export default class PartnerRepository implements IPartnerRepository {
     }
   }
 
-  async getOrdersHistory(userId: UniqueIdentifier): Promise<any> {
-    return '';
+  async getGoods(): Promise<GoodsEntity[]> {
+    const goods = await this.connection.manager.find(GoodsOrm);
+    return goods.map((el) => GoodsMapper.ormToDomain(el));
+  }
+  async getGoodById(id: number): Promise<GoodsEntity | undefined> {
+    const good = await this.connection.manager.findOne(GoodsOrm, {
+      where: { id },
+    });
+    if (good) {
+      return GoodsMapper.ormToDomain(good);
+    }
   }
 }

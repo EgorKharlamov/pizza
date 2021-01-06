@@ -29,10 +29,17 @@ export class AuthService {
       username: user.email,
       sub: user.id,
     };
-    return this.jwtService.sign(payload);
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   async getUserById(id: number): Promise<PartnerEntity | undefined> {
     return this.usersService.findById(id);
+  }
+
+  async getUserByToken(token: any) {
+    console.log(this.jwtService.decode(token));
+    return this.jwtService.decode(token);
   }
 }
