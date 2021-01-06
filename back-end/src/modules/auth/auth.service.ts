@@ -39,7 +39,6 @@ export class AuthService {
   }
 
   async getUserByToken(token: any) {
-    console.log(this.jwtService.decode(token));
     return this.jwtService.decode(token);
   }
 }

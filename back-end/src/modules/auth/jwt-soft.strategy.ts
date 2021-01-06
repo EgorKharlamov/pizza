@@ -21,7 +21,6 @@ export class JwtSoftStrategy extends PassportStrategy(Strategy) {
       return;
     }
     if (req.headers.authorization) {
-      console.log('auth', req.headers, options);
       super.authenticate(req, options);
       return;
     }
