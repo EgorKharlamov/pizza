@@ -11,7 +11,7 @@ import Pizza from './Pages/Pizza';
 import ToastsContainer from './Components/ToastsContainer';
 import AllModalContainer from './Components/Modals/AllModalContainer';
 import AuthTry from './Components/HOC/AuthTry';
-import SwapTheme from './Components/SwapTheme';
+import Swapper from './Components/Swapper';
 import OrdersHistory from './Pages/OrdersHistory';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
     <AuthTry>
       <ToastsContainer />
       <Navbar />
-      <SwapTheme />
+      <Swapper />
       <Switch>
         <Route exact path={routesStatic.home} component={Home} />
         <Route exact path={routesStatic.order} component={Order} />

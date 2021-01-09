@@ -1,18 +1,16 @@
 @import "../styles/vars";
 
-.theme {
+.swapper {
   position: fixed;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
   left: -85px;
   bottom: 50%;
-  height: 30px;
   border: 1px solid rgba(#000, .5);
   box-shadow: 0 0 3px 0 $text-color;
   background-color: $bg-med;
   border-radius: 7px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
   padding: 10px 15px 10px 40px;
   z-index: 10;
   cursor: pointer;
@@ -26,6 +24,7 @@
 .icon {
   font-size: 2.5rem;
   cursor: pointer;
+  justify-self: center;
 }
 
 .animate {
@@ -40,7 +39,7 @@
     box-shadow: 0 0 3px 0 $text-color;
   }
   50% {
-    box-shadow: 0 0 8px 1px $text-color;
+    box-shadow: 0 0 12px 2px $text-color;
   }
   60% {
     box-shadow: 0 0 3px 0 $text-color;
