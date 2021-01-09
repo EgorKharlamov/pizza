@@ -4,7 +4,7 @@ export const initialStateUser: IUserState = {
   id: -1,
   email: '',
   name: 'Guest',
-  phone: 0,
+  phone: '',
   address: {
     street: '',
     building: '',

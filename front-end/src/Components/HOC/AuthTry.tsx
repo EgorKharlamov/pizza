@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Cookies from 'universal-cookie';
 import { UserActions } from '../../Store/user/actions';
+import { getAuth } from '../../Helpers/LocalStorage/LocalStorage';
 
 interface AuxProps {
   children: React.ReactNode;
@@ -11,8 +11,7 @@ const AuthTry = ({ children }: AuxProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const cookie = new Cookies();
-    const token = cookie.get('auth');
+    const token = getAuth();
     token && dispatch(UserActions.getUser(token));
   }, []);
 

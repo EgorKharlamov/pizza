@@ -1,35 +1,31 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCheck, faClock, faCoins, faTimesCircle, faTruck,
+} from '@fortawesome/free-solid-svg-icons';
 import { GoodActions } from '../Store/goods/actions';
 import pizza from '../assets/img/pizza.png';
 import s from './Pizza.module.scss';
 import Button from '../Components/UI/Button';
-import { addToCart } from '../Helpers/LocalStorage';
 import { IState } from '../Store';
-import { IGoodsState } from '../Store/goods/types';
+import IGoods, { IGoodsState } from '../Store/goods/types';
+import { OrderActions } from '../Store/orders/actions';
 
 function Pizza() {
   const params: {id: string} = useParams();
 
   const dispatch = useDispatch();
   const good = useSelector<IState, IGoodsState>((state) => state.good);
-  const chosen = {
-    id: 0,
-    name: 'Pizza',
-    description: 'asdf asd fasd fasd fasd fas df asd fasd fa sdf asdf asd fas dfasdf',
-    inStock: true,
-    orderTimes: 100,
-    price: 3.99,
-    timeToOrder: 1,
-  };
+  const { chosen } = good;
 
   useEffect(() => {
     dispatch(GoodActions.getGoodById({ id: +params.id }));
   }, []);
 
   const addToCartClickHandler = () => {
-    addToCart(good.chosen);
+    dispatch(OrderActions.addGoodToCart(good.chosen as IGoods));
   };
 
   return (
@@ -41,10 +37,31 @@ function Pizza() {
         <section className={`${s.section} ${s.sectionRight}`}>
           <h1 className={s.title}>{chosen?.name}</h1>
           <p className={s.description}>{chosen?.description}</p>
-          <span className={`${s.inStock} ${s.span}`}>{chosen?.inStock}</span>
-          <span className={`${s.orderTimes} ${s.span}`}>{chosen?.orderTimes}</span>
-          <span className={`${s.price} ${s.span}`}>{chosen?.price}</span>
-          <span className={`${s.timeToOrder} ${s.span}`}>{chosen?.timeToOrder}</span>
+          <div className={s.stats}>
+            <span className={`${s.inStock} ${s.span}`}>
+              {chosen?.inStock
+                ? <FontAwesomeIcon icon={faCheck} className={s.icon} />
+                : <FontAwesomeIcon icon={faTimesCircle} className={s.icon} />}
+              <span className={`${s.text} ${s.description}`}>In stock</span>
+              <span className={s.text}>{chosen?.inStock}</span>
+            </span>
+            <span className={`${s.orderTimes} ${s.span}`}>
+              <FontAwesomeIcon icon={faTruck} className={s.icon} />
+              <span className={`${s.text} ${s.description}`}>Order times</span>
+              <span className={s.text}>{chosen?.orderTimes}</span>
+            </span>
+            <span className={`${s.price} ${s.span}`}>
+              <FontAwesomeIcon icon={faCoins} className={s.icon} />
+              <span className={`${s.text} ${s.description}`}>Price</span>
+              <span className={s.text}>{chosen?.price}</span>
+            </span>
+            <span className={`${s.timeToOrder} ${s.span}`}>
+              <FontAwesomeIcon icon={faClock} className={s.icon} />
+              <span className={`${s.text} ${s.description}`}>Time to order</span>
+              <span className={s.text}>{chosen?.timeToOrder}</span>
+            </span>
+
+          </div>
         </section>
         <footer className={s.footer}>
           <Button label='Add to cart' clickFunc={addToCartClickHandler} />

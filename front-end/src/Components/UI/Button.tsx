@@ -10,11 +10,12 @@ export interface IButton {
   secondary?: boolean
   transparent?: boolean
   icon?: IconDefinition
+  disabled?: boolean
   clickFunc: Function
 }
 
 function Button({
-  label, clickFunc, primary = true, secondary, transparent, icon,
+  label, clickFunc, primary = true, secondary, transparent, icon, disabled,
 }: IButton) {
   const classButton = classNames({
     [s.primary]: primary,
@@ -27,6 +28,7 @@ function Button({
   return (
     <button
       type='button'
+      disabled={disabled}
       className={classButton}
       onClick={() => clickFunc()}
     >

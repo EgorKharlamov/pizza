@@ -1,19 +1,18 @@
 import React from 'react';
-// import Toast, { ToastType } from './Toast';
+import { useSelector } from 'react-redux';
+import Toast from './Toast';
 import s from './ToastsContainer.module.scss';
+import { IState } from '../Store';
+import { IToastState } from '../Store/toast/types';
 
 function ToastsContainer() {
-  // const toasts = [
-  //   { id: 0, message: 'Something wrong... asdf as dfas dfas df asdf asdf',
-  //     type: ToastType.error },
-  //   { id: 1, message: 'Success', type: ToastType.success }];
+  const toasts = useSelector<IState, IToastState>((state) => state.toast);
+
   return (
     <div className={s.container}>
-      kek
-
-      {/* {toasts.map((toast) => ( */}
-      {/*  <Toast message={toast.message} type={toast.type} key={toast.id} /> */}
-      {/* ))} */}
+      {toasts.list.map((toast) => (
+        <Toast message={toast.message} type={toast.type} id={toast.id} key={toast.id} />
+      ))}
     </div>
   );
 }

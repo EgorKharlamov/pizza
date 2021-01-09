@@ -1,14 +1,14 @@
 import UrlPattern from 'url-pattern';
 import ky from 'ky';
-import Cookies from 'universal-cookie';
 import {
   ApiPartnerEndpoint, ApiPartnerEndpoints, ApiPartnerRequestDtos, ApiPartnerResponseDtos,
 } from './partner';
 import {
   ApiOrderEndpoint, ApiOrderEndpoints, ApiOrderRequestDtos, ApiOrderResponseDtos,
 } from './order';
+import { Auth } from '../Helpers/LocalStorage/Auth';
 
-const API_SERVER = process.env.NODE_ENV === 'development' ? 'http://localhost:2310/' : 'http://localhost/api/';
+const API_SERVER = process.env.NODE_ENV === 'development' ? 'http://localhost:2310/' : 'http://192.168.0.9/api/';
 
 export type ApiEndpoint = ApiPartnerEndpoint | ApiOrderEndpoint
 export type ApiRequestDtos = ApiPartnerRequestDtos & ApiOrderRequestDtos
@@ -50,8 +50,7 @@ export default async function requester<E extends ApiEndpoint>(endpoint: E,
     hooks: {
       beforeRequest: [
         async (request) => {
-          const cookies = new Cookies();
-          const token = cookies.get('auth');
+          const token = Auth.getAuthToken();
           if (token) {
             request.headers.set('Authorization',
               `Bearer ${token}`);

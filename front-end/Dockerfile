@@ -5,15 +5,14 @@ RUN apt-get install -y libpq-dev postgresql-client
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package*.json ./
+COPY package.json ./
 RUN mkdir -p /app/node_modules/node-sass/vendor/linux-x64-51
 RUN curl -L https://github.com/sass/node-sass/releases/download/v4.5.0/linux-x64-51_binding.node -o ./node_modules/node-sass/vendor/linux-x64-51/binding.node
 
-RUN npm ci --silent
-RUN npm i react-scripts@4.0.1 -g --silent
+RUN yarn install
 COPY . ./
-RUN npm run sass:rebuild
-RUN npm run build
+RUN yarn run sass:rebuild
+RUN yarn run build
 
 
 #nginx

@@ -1,30 +1,88 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import CartCardsList from '../Components/CartCardsList';
 import Button from '../Components/UI/Button';
-import Input from '../Components/UI/Input';
-import { UserActions } from '../Store/user/actions';
+import { ModalActions } from '../Store/modals/actions';
+import { ModalsType, routesStatic } from '../types';
+import s from './Order.module.scss';
+import { IOrderState } from '../Store/orders/types';
+import { IState } from '../Store';
+import { Cart } from '../Helpers/LocalStorage/Cart';
+import { IUserState } from '../Store/user/types';
+import { GoodActions } from '../Store/goods/actions';
+import { IGoodsState } from '../Store/goods/types';
+import { OrderActions } from '../Store/orders/actions';
 
 function Order() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const { cart, list } = useSelector<IState, IOrderState>((state) => state.order);
+  const goods = useSelector<IState, IGoodsState>((state) => state.good);
+  const user = useSelector<IState, IUserState>((state) => state.user);
+  const openFormOrderModal = () => {
+    dispatch(ModalActions.modalToggle(ModalsType.formOrderModal));
+  };
+  const [isOpenPrice, toggleIsOpenPrice] = useState(false);
+  const { totalPrice } = Cart.modifyCart(cart);
+  const DELIVERY_COST = 5;
 
-  const clickHandler = () => {
-    dispatch(UserActions.signIn({ email, pass }));
-  };
-  const onChangeEmailHandler = (val: string) => {
-    setEmail(val);
-  };
-  const onChangePassHandler = (val: string) => {
-    setPass(val);
-  };
+  useEffect(() => {
+    if (!goods.list.length) {
+      dispatch(GoodActions.getGoodsList());
+    }
+  }, []);
+  useEffect(() => {
+    if (user.id !== -1) {
+      dispatch(OrderActions.getOrdersHistory());
+    }
+  }, [user]);
   return (
     <div className='wrapper'>
       <div className='page'>
-        <Button label='Cancel' clickFunc={clickHandler} secondary />
-        <Button label='Save' clickFunc={clickHandler} />
-        <Input label='Username' emitFunc={onChangeEmailHandler} />
-        <Input label='Password' type='password' emitFunc={onChangePassHandler} />
+        <div className={s.historyContainer}>
+          {user.id !== -1 && !!list.length && (
+            <Link to={routesStatic.ordersHistory} className={`${s.link}`}>
+              Orders history
+            </Link>
+          ) }
+        </div>
+        <CartCardsList />
+        {cart.length ? (
+          <>
+            <div
+              className={s.price}
+              onClick={() => toggleIsOpenPrice(!isOpenPrice)}
+            >
+              <div className={s.priceContainer}>
+                <h2 className={s.priceTitle}>
+                  <p className={s.priceTitleText}>Total price:</p>
+                  <p className={s.priceTitleVal}>
+                    {Math.round((totalPrice + DELIVERY_COST) * 100) / 100}
+                  </p>
+                </h2>
+
+                {isOpenPrice && (
+                  <>
+                    <p className={s.priceSub}>
+                      <span className={s.priceSubText}>Pizzas:</span>
+                      <span className={s.priceSubVal}>{totalPrice}</span>
+                    </p>
+                    <p className={s.priceSub}>
+                      <span className={s.priceSubText}>Delivery:</span>
+                      <span className={s.priceSubVal}>{DELIVERY_COST}</span>
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className={s.buttonContainer}>
+              <Button
+                label='Form order'
+                clickFunc={openFormOrderModal}
+              />
+            </div>
+          </>
+        ) : <h1>Cart is empty</h1>}
       </div>
     </div>
   );

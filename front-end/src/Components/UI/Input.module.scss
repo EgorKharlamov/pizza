@@ -20,13 +20,24 @@ $input-pd: $input-pdt $input-pdl;
     background-color: $bg-med;
     color: $text-color;
 
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active  {
+      -webkit-box-shadow: 0 0 0 30px $bg-med inset !important;
+      caret-color: $text-color;
+    }
+    &:-webkit-autofill {
+      -webkit-text-fill-color: $text-color !important;
+    }
+
     &.error {
       animation: errorInput 5s;
     }
 
     &:focus {
       border: 1px solid $accent;
-      outline: none;
     }
   }
 
@@ -51,6 +62,40 @@ $input-pd: $input-pdt $input-pdl;
   }
 }
 
+.tooltip {
+  visibility: hidden;
+  max-width: calc(100% - 16px);
+  min-width: 50px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 85%;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.labelInput:not(:focus):hover + .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 .errorText {
   position: absolute;
   display: block;
@@ -60,8 +105,8 @@ $input-pd: $input-pdt $input-pdl;
   left: 5px;
   color: $red;
   overflow: hidden;
-  animation: fadeOut 5s;
-  opacity: 0;
+  //animation: fadeOut 5s;
+  //opacity: 0;
   pointer-events: none;
 }
 

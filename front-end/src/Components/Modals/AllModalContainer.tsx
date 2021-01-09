@@ -10,6 +10,7 @@ import SignUpModal from './SignUpModal';
 import s from './AllModalContainer.module.scss';
 import { ModalActions } from '../../Store/modals/actions';
 import { IUserState } from '../../Store/user/types';
+import FormOrderModal from './FormOrderModal';
 
 function AllModalContainer() {
   const dispatch = useDispatch();
@@ -41,11 +42,7 @@ function AllModalContainer() {
     };
   }, [showed]);
 
-  useEffect(() => {
-    if (user.id > -1 && showed) {
-      closeModal();
-    }
-  }, [user]);
+  useEffect(() => () => document.removeEventListener('mousedown', handleClickOut), [user]);
 
   return (
     <>
@@ -55,6 +52,7 @@ function AllModalContainer() {
           <FontAwesomeIcon icon={faTimes} className={`${s.icon} ${s.iconTimes}`} onClick={closeModal} />
           {type === ModalsType.signInModal && <SignInModal />}
           {type === ModalsType.signUpModal && <SignUpModal />}
+          {type === ModalsType.formOrderModal && <FormOrderModal />}
         </div>
       </div>
       )}

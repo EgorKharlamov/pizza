@@ -1,17 +1,34 @@
-import { call, put, takeEvery } from '@redux-saga/core/effects';
+import {
+  call, delay, put, takeEvery,
+} from '@redux-saga/core/effects';
 import { Action } from 'redux-actions';
-import Cookies from 'universal-cookie';
+import { v4 as uuidv4 } from 'uuid';
 import { UserActions } from './actions';
 import ISignUpDto from '../../Api/Dto/Requests/SignUpDto';
 import ISignInDto from '../../Api/Dto/Requests/SignInDto';
 import requester from '../../Api';
 import { ApiPartnerEndpoint } from '../../Api/partner';
+import { Auth } from '../../Helpers/LocalStorage/Auth';
+import { ToastActions } from '../toast/actions';
+import { ToastType } from '../toast/types';
+import { ModalActions } from '../modals/actions';
 
 function* signUpUserWorker(action: Action<ISignUpDto>) {
   try {
     const res = yield call(requester, ApiPartnerEndpoint.signUp, { ...action.payload });
-    console.log(res);
-  } catch (e) { console.log(e); }
+    if (res.id) {
+      const uniqId = uuidv4();
+      yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: 'Successfully sign up!' }));
+      yield put(ModalActions.modalToggle(null));
+      yield delay(5000);
+      yield put(ToastActions.rmByIdToast(uniqId));
+    }
+  } catch (e) {
+    const uniqId = uuidv4();
+    yield put(ToastActions.addToast({ id: uniqId, type: ToastType.error, message: `Something wrong! ${e}` }));
+    yield delay(5000);
+    yield put(ToastActions.rmByIdToast(uniqId));
+  }
 }
 
 function* signInUserWorker(action: Action<ISignInDto>) {
@@ -20,15 +37,23 @@ function* signInUserWorker(action: Action<ISignInDto>) {
       { ...action.payload });
     let user;
     if (access_token) {
-      const cookies = new Cookies();
-      cookies.set('auth', access_token, { path: '/' });
+      Auth.setAuth(access_token);
       user = yield call(requester, ApiPartnerEndpoint.profile);
     }
     if (user?.id) {
       yield put(UserActions.setUser({ ...user }));
+      yield put(ModalActions.modalToggle(null));
+
+      const uniqId = uuidv4();
+      yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: 'Successfully sign in!' }));
+      yield delay(5000);
+      yield put(ToastActions.rmByIdToast(uniqId));
     }
   } catch (e) {
-    console.log(e);
+    const uniqId = uuidv4();
+    yield put(ToastActions.addToast({ id: uuidv4(), type: ToastType.error, message: `Error sign in! ${e.message}` }));
+    yield delay(5000);
+    yield put(ToastActions.rmByIdToast(uniqId));
   }
 }
 

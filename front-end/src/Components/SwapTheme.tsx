@@ -1,23 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Cookies from 'universal-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import { ThemeType } from '../types';
 import s from './SwapTheme.module.scss';
+import { Theme } from '../Helpers/LocalStorage/Theme';
 
 function SwapTheme() {
-  const cookie = new Cookies();
-  const cookieTheme = cookie.get('theme');
+  const storedTheme = Theme.getTheme();
 
-  const [theme, setTheme] = useState(cookieTheme || ThemeType.light);
+  const [themeState, setThemeState] = useState(storedTheme || ThemeType.light);
   const [open, setOpen] = useState(false);
 
   const setRootTheme = () => {
-    theme !== ThemeType.dark ? setTheme(ThemeType.dark) : setTheme(ThemeType.light);
+    themeState !== ThemeType.dark ? setThemeState(ThemeType.dark) : setThemeState(ThemeType.light);
     document.getElementsByTagName('html')[0].setAttribute('data-theme',
-      theme);
-    cookie.set('theme', theme);
+      themeState);
+    Theme.setTheme(themeState);
   };
 
   useEffect(() => {

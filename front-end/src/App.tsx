@@ -12,6 +12,7 @@ import ToastsContainer from './Components/ToastsContainer';
 import AllModalContainer from './Components/Modals/AllModalContainer';
 import AuthTry from './Components/HOC/AuthTry';
 import SwapTheme from './Components/SwapTheme';
+import OrdersHistory from './Pages/OrdersHistory';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <SwapTheme />
       <Switch>
         <Route exact path={routesStatic.home} component={Home} />
-        <Route path={routesStatic.order} component={Order} />
+        <Route exact path={routesStatic.order} component={Order} />
+        <Route path={routesStatic.ordersHistory} component={OrdersHistory} />
         <Route exact path={routesStatic.goods} component={Goods} />
         <Route path={`${routesStatic.goods}/:id`} component={Pizza} />
       </Switch>

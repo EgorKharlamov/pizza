@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,9 @@ import { IUserState } from '../Store/user/types';
 import Button from './UI/Button';
 import { ModalActions } from '../Store/modals/actions';
 import { UserActions } from '../Store/user/actions';
+import { IOrderState } from '../Store/orders/types';
+import { OrderActions } from '../Store/orders/actions';
+import { Cart } from '../Helpers/LocalStorage/Cart';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -32,6 +35,12 @@ function Navbar() {
   const location = useLocation();
   const dropdownOptions = [{ name: 'Logout', functionToEmit: logOut }];
 
+  const { cart }: IOrderState = useSelector<IState, IOrderState>((state) => state.order);
+  useEffect(() => {
+    const list = Cart.getGoodsList();
+    list && dispatch(OrderActions.setGoodsListToCart(list));
+  }, []);
+
   return (
     <div className={s.navbarContainer}>
       <div className='wrapper'>
@@ -46,7 +55,7 @@ function Navbar() {
             <li className={`${s.menuItem}`}>
               <Link
                 to={routesStatic.goods}
-                className={`${s.link} ${s.menuLink} ${location.pathname === routesStatic.goods && s.active}`}
+                className={`${s.link} ${s.menuLink} ${location.pathname.indexOf(routesStatic.goods) > -1 && s.active}`}
               >
                 <span className={`${s.text}`}>Goods</span>
                 <FontAwesomeIcon icon={faPizzaSlice} className={`${s.icon}`} />
@@ -56,10 +65,11 @@ function Navbar() {
             <li className={`${s.menuItem}`}>
               <Link
                 to={routesStatic.order}
-                className={`${s.link} ${s.menuLink} ${location.pathname === routesStatic.order && s.active}`}
+                className={`${s.link} ${s.menuLink} ${location.pathname.indexOf(routesStatic.order) > -1 && s.active}`}
               >
                 <span className={`${s.text}`}>Order</span>
                 <FontAwesomeIcon icon={faShoppingCart} className={`${s.icon}`} />
+                <span className={s.count}>{cart.length}</span>
               </Link>
             </li>
 

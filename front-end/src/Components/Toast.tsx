@@ -1,15 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import s from './Toast.module.scss';
-
-export interface IToast {
-  message: string
-  type: ToastType
-}
-export enum ToastType {
-  success = 'success',
-  error = 'error'
-}
+import { IToast } from '../Store/toast/types';
 
 function Toast({ message, type }: IToast) {
   const toastClasses = classNames({

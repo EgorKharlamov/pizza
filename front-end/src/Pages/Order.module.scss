@@ -1,0 +1,60 @@
+@import "../styles/vars";
+
+.buttonContainer {
+  padding: 10px 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.historyContainer {
+  width: 100%;
+  display: grid;
+  justify-content: flex-end;
+}
+
+.link {
+  color: $text-color;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.price {
+  display: grid;
+  justify-content: flex-end;
+  padding: 0 50px;
+  cursor: pointer;
+
+  &Container:hover {
+    .priceTitleVal, .priceSubVal {
+      color: $accent;
+    }
+  }
+
+  &Title {
+    margin: 0;
+  }
+  &Sub {
+    margin: 0 0 10px 7px;
+    border-bottom: 1px solid $text-color;
+  }
+
+  &Title, &Sub {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  &TitleVal, &SubVal {
+    text-align: end;
+    color: $text-color;
+    transition: $trans;
+  }
+}
+
+@media (max-width: 500px) {
+  .buttonContainer {
+    display: grid;
+    justify-content: initial;
+  }
+  .price {
+    justify-content: initial;
+  }
+}

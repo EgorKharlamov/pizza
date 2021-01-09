@@ -34,6 +34,7 @@ $accent: alpha(--color-accent);
   }
 
   &Link {
+    position: relative;
     display: grid;
     cursor: default;
     grid-template-columns: 1fr auto;
@@ -57,10 +58,19 @@ $accent: alpha(--color-accent);
       & .icon {
         color: $accent;
       }
+      & .count {
+        color: $text-color-secondary;
+      }
+    }
+
+    &:hover {
+      & .count {
+        color: $text-color-secondary;
+      }
+      cursor: pointer;
     }
 
     &:not(.active):hover {
-      cursor: pointer;
 
       & .icon {
         color: $accent;
@@ -92,3 +102,44 @@ $accent: alpha(--color-accent);
   align-items: flex-end;
 }
 
+.count {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  right: 12px;
+  top: 19px;
+  width: 36px;
+  color: $bg-light;
+  font-weight: bold;
+  font-size: .9rem;
+  text-shadow: 0 0 1px $accent;
+  transition: $trans;
+}
+
+.animate {
+  animation: shake 10s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: none;
+  }
+  8% {
+    transform: none;
+  }
+  10% {
+    transform: skewX(15deg) translateX(-3px);
+  }
+  12% {
+    transform: skewX(-15deg) translateX(3px);
+  }
+  14% {
+    transform: skewX(5deg) translateX(-1px);
+  }
+  16% {
+    transform: skewX(-5deg) translateX(1px);
+  }
+  18% {
+    transform: none;
+  }
+}

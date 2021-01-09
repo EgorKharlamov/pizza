@@ -1,0 +1,121 @@
+@import "../styles/vars";
+
+$pic-height: 80px;
+$container-pd: 15px;
+
+.container {
+ display: grid;
+  grid-template-columns: auto repeat(3, 1fr) 80px;
+  grid-column-gap: 3rem;
+  padding: #{$container-pd};
+  min-height: calc(#{$pic-height} - #{$container-pd});
+  border-bottom: 3px solid black;
+  color: $text-color;
+  transition: $trans;
+}
+
+.picContainer {
+  position: relative;
+  width: $pic-height;
+}
+
+.pic {
+  position: absolute;
+ height: $pic-height;
+  top: calc(-#{$container-pd} / 2);
+  left: 0;
+}
+
+.span {
+  font-size: 2rem;
+  height: 100%;
+  display: grid;
+  align-items: flex-end;
+}
+
+.icon {
+  position: absolute;
+  height: 100%;
+  font-size: 2rem;
+  left: 0;
+  padding: 15px 35px;
+  margin-top: -15px;
+  color: $text-color;
+  transition: $trans;
+  cursor: pointer;
+
+  &:hover {
+    color: $accent
+  }
+}
+
+.iconContainer {
+  position: relative;
+}
+
+@media (max-width: 700px) {
+  .container {
+    font-size: 1rem;
+    grid-template-columns: repeat(4, auto) 80px;
+    grid-column-gap: .5rem;
+    min-height: 30px;
+    padding: 5px 20px;
+  }
+  .span {
+    font-size: 1rem;
+  }
+  .icon {
+    font-size: 1rem;
+    padding: 5px 35px;
+    margin-top: -5px;
+  }
+  .pic {
+    height: 30px;
+    top: 0px;
+  }
+}
+
+.countContainer {
+  display: flex;
+}
+
+.countAction {
+  display: grid;
+  margin-left: 10px;
+  margin-bottom: -15px;
+
+  &Up, &Down {
+    font-size: 1.5rem;
+    padding: 0 10px;
+    transition: $trans;
+    color: $text-color;
+
+    &:hover {
+      cursor: pointer;
+      color: $accent;
+    }
+  }
+
+  &Up {
+    padding-top: 10px;
+  }
+  &Down {
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+ .pic {
+ }
+  .container {
+    grid-template-columns: repeat(4, auto) 10px;
+  }
+  .picContainer {
+    width: 30px;
+  }
+  .icon {
+    font-size: 1rem;
+    padding: 5px 10px;
+    margin-top: -5px;
+  }
+}
