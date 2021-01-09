@@ -1,5 +1,44 @@
+@import "../styles/vars";
+
+.container {
+  padding: 15px 20px;
+}
 
 .history {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-column-gap: 15px;
+  grid-template-columns: 40px minmax(150px, 1fr) 50px 0.45fr 150px;
+  align-items: end;
+  margin-bottom: 10px;
+  border: 2px solid $bg-dark;
+  background-color: $bg-med;
+  border-radius: 10px;
+  padding: 5px 15px;
+
+  &Id, &Goods, &Price, &Address, &Date {
+    margin: 0;
+  }
+
+  &Goods {
+    &Elem {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .history {
+    grid-template: "a b c" 1fr
+                   "d d d" 1fr
+                   "e e e" 1fr / auto;
+    grid-row-gap: 5px;
+
+    &Goods {
+      grid-area: e;
+    }
+    &Address {
+      grid-area: d;
+    }
+  }
 }

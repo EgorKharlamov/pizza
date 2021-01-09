@@ -13,11 +13,13 @@ import { OrderActions } from '../Store/orders/actions';
 import { IOrderState } from '../Store/orders/types';
 import { Cart } from '../Helpers/LocalStorage/Cart';
 import { IModifiedCart } from './CartCardsList';
+import { IUserState } from '../Store/user/types';
+import { Mathem } from '../Helpers/Mathem';
 
 function CardsList() {
   const dispatch = useDispatch();
   const { list } = useSelector<IState, IGoodsState>((state) => state.good);
-
+  const user = useSelector<IState, IUserState>((state) => state.user);
   const { cart } = useSelector<IState, IOrderState>((state) => state.order);
   const modifiedCart: IModifiedCart = Cart.modifyCart(cart);
   const getCount = (id: number) => {
@@ -50,7 +52,7 @@ function CardsList() {
               img={pizza}
               title={el.name}
               description={el.description}
-              price={el.price}
+              price={`${Mathem.roundTwo(el.price * user.currency.coefficient)}${user.currency.current}`}
             />
           </Link>
           <div className={s.buttons}>

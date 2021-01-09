@@ -5,7 +5,7 @@ export interface ICard {
   img: string
   title: string
   description: string
-  price: number
+  price: string
 }
 
 function Card({

@@ -13,7 +13,7 @@ export interface CartCardProp {
   img: string
   name: string
   count: number
-  price: number
+  price: string
 }
 function CartCard({
   name, count, price, id,

@@ -12,12 +12,15 @@ import Button from '../Components/UI/Button';
 import { IState } from '../Store';
 import IGoods, { IGoodsState } from '../Store/goods/types';
 import { OrderActions } from '../Store/orders/actions';
+import { IUserState } from '../Store/user/types';
+import { Mathem } from '../Helpers/Mathem';
 
 function Pizza() {
   const params: {id: string} = useParams();
 
   const dispatch = useDispatch();
   const good = useSelector<IState, IGoodsState>((state) => state.good);
+  const { currency: { current, coefficient } } = useSelector<IState, IUserState>((state) => state.user);
   const { chosen } = good;
 
   useEffect(() => {
@@ -53,7 +56,11 @@ function Pizza() {
             <span className={`${s.price} ${s.span}`}>
               <FontAwesomeIcon icon={faCoins} className={s.icon} />
               <span className={`${s.text} ${s.description}`}>Price</span>
-              <span className={s.text}>{chosen?.price}</span>
+              <span className={s.text}>
+                {
+                !!chosen?.price && `${Mathem.roundTwo(chosen!.price * coefficient)}${current}`
+              }
+              </span>
             </span>
             <span className={`${s.timeToOrder} ${s.span}`}>
               <FontAwesomeIcon icon={faClock} className={s.icon} />

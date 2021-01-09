@@ -27,6 +27,7 @@ function Textarea({
         onFocus={() => setFocus(!focus)}
         onChange={(e) => emitFunc(e.target.value)}
         onBlur={() => setFocus(false)}
+        style={{ resize: 'none' }}
       />
       {!!tooltip && <span className={s.tooltip}>{tooltip}</span>}
     </label>

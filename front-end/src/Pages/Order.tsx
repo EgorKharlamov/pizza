@@ -13,6 +13,7 @@ import { IUserState } from '../Store/user/types';
 import { GoodActions } from '../Store/goods/actions';
 import { IGoodsState } from '../Store/goods/types';
 import { OrderActions } from '../Store/orders/actions';
+import { Mathem } from '../Helpers/Mathem';
 
 function Order() {
   const dispatch = useDispatch();
@@ -57,19 +58,18 @@ function Order() {
                 <h2 className={s.priceTitle}>
                   <p className={s.priceTitleText}>Total price:</p>
                   <p className={s.priceTitleVal}>
-                    {Math.round((totalPrice + DELIVERY_COST) * 100) / 100}
+                    {`${Mathem.roundTwo((totalPrice + DELIVERY_COST) * user.currency.coefficient)}${user.currency.current}`}
                   </p>
                 </h2>
-
                 {isOpenPrice && (
                   <>
                     <p className={s.priceSub}>
                       <span className={s.priceSubText}>Pizzas:</span>
-                      <span className={s.priceSubVal}>{totalPrice}</span>
+                      <span className={s.priceSubVal}>{`${Mathem.roundTwo(totalPrice * user.currency.coefficient)}${user.currency.current}`}</span>
                     </p>
                     <p className={s.priceSub}>
                       <span className={s.priceSubText}>Delivery:</span>
-                      <span className={s.priceSubVal}>{DELIVERY_COST}</span>
+                      <span className={s.priceSubVal}>{`${Mathem.roundTwo(DELIVERY_COST * user.currency.coefficient)}${user.currency.current}`}</span>
                     </p>
                   </>
                 )}

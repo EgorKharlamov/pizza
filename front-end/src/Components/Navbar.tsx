@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ import { ModalsType, routesStatic } from '../types';
 import s from './Navbar.module.scss';
 import Dropdown from './UI/Dropdown';
 import { IState } from '../Store';
-import { IUserState } from '../Store/user/types';
+import { CurrencyType, IUserState } from '../Store/user/types';
 import Button from './UI/Button';
 import { ModalActions } from '../Store/modals/actions';
 import { UserActions } from '../Store/user/actions';
@@ -22,6 +22,8 @@ function Navbar() {
   const dispatch = useDispatch();
   const user: IUserState = useSelector<IState, IUserState>((state) => state.user);
 
+  const [swapCurrency, setSwapCurrency] = useState<CurrencyType>(CurrencyType.euro);
+
   const openModalSignIn = () => {
     dispatch(ModalActions.modalToggle(ModalsType.signInModal));
   };
@@ -31,15 +33,23 @@ function Navbar() {
   const logOut = () => {
     dispatch(UserActions.logOut());
   };
+  const swapCurrencyStore = () => {
+    swapCurrency === CurrencyType.dollar
+      ? dispatch(UserActions.currencySwapToDollar())
+      : dispatch(UserActions.currencySwapToEuro());
+  };
 
   const location = useLocation();
-  const dropdownOptions = [{ name: 'Logout', functionToEmit: logOut }];
+  const dropdownOptions = [{ name: `Swap currency to: ${swapCurrency}`, functionToEmit: swapCurrencyStore }, { name: 'Logout', functionToEmit: logOut }];
 
   const { cart }: IOrderState = useSelector<IState, IOrderState>((state) => state.order);
   useEffect(() => {
     const list = Cart.getGoodsList();
     list && dispatch(OrderActions.setGoodsListToCart(list));
   }, []);
+  useEffect(() => {
+    setSwapCurrency(user.currency.current === CurrencyType.dollar ? CurrencyType.euro : CurrencyType.dollar);
+  }, [user.currency]);
 
   return (
     <div className={s.navbarContainer}>
