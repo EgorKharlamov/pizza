@@ -1,11 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import OrderOrm from './Order.orm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export default class UserOrm extends BaseEntity {
@@ -18,8 +11,8 @@ export default class UserOrm extends BaseEntity {
   @Column({ type: 'varchar', length: 80 })
   password: string;
 
-  @Column({ type: 'int' })
-  phone: number;
+  @Column({ type: 'varchar', length: 20 })
+  phone: string;
 
   @Column({ type: 'int', default: 0 })
   balance: number;

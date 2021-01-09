@@ -3,12 +3,12 @@ import IOrderRepository from '../Repositories/IOrderRepository';
 import GetOrdersListRequest from '../Requests/GetOrdersListRequest';
 
 export default class GetOrdersListUseCase {
-  constructor(public orderRepository: IOrderRepository) {}
+  constructor(public orderRepository: IOrderRepository, public user: any) {}
 
   async do(request: GetOrdersListRequest): Promise<OrderEntity[]> {
     try {
       const orders = await this.orderRepository.getOrders(
-        request.userId,
+        this.user.id,
         request.page,
         request.limit,
         request.sort,

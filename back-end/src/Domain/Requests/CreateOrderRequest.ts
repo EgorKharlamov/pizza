@@ -4,6 +4,7 @@ export default class CreateOrderRequest {
   constructor(
     public pizzas: number[],
     public address: IAddress,
+    public phone: string,
     public comment?: string
   ) {}
 }

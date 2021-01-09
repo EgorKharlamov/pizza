@@ -3,8 +3,8 @@ import { UniqueIdentifier } from '../types';
 import { IAddress } from './PartnerEntity';
 
 export interface IOrderPizza {
-  id: number;
   counts: number;
+  name: string;
 }
 
 export enum OrderStatusType {
@@ -14,6 +14,7 @@ export enum OrderStatusType {
 }
 export default class OrderEntity extends BaseEntity<OrderEntity> {
   readonly id: UniqueIdentifier;
+  phone: string;
   userId: UniqueIdentifier;
   pizzas: IOrderPizza[];
   comment: string;

@@ -15,15 +15,25 @@ export default class OrderRepository implements IOrderRepository {
   async createOrder(
     goodsIdsList: UniqueIdentifier[],
     address: IAddress,
+    phone: string,
     comment?: string,
     userId?: UniqueIdentifier
   ): Promise<OrderEntity> {
     const sum = await this.calculateOrderSum(goodsIdsList);
     const waitTime = await this.calculateWaitTime(goodsIdsList);
 
+    const goodsList: GoodsOrm[] = [];
+    for (const goodsId of goodsIdsList) {
+      const good = await this.findGoodById(goodsId);
+      if (good) {
+        goodsList.push(good);
+      }
+    }
+
     const order = this.connection.manager.create(OrderOrm, {
       user_id: (userId as number) || -1,
-      goods_list: JSON.stringify(goodsIdsList.map((el) => +el)),
+      phone,
+      goods_list: JSON.stringify(goodsList.map((el) => el.name)),
       comment,
       address: JSON.stringify(address),
       status: OrderStatusType.active,
@@ -33,6 +43,15 @@ export default class OrderRepository implements IOrderRepository {
     });
     await order.save();
     return OrderMapper.ormToDomain(order);
+  }
+
+  async findGoodById(id: UniqueIdentifier): Promise<GoodsOrm | undefined> {
+    const pizza = await this.connection.manager.findOne(GoodsOrm, {
+      where: { id },
+    });
+    if (pizza) {
+      return pizza;
+    }
   }
 
   async findGoodsListByIdList(
@@ -45,10 +64,17 @@ export default class OrderRepository implements IOrderRepository {
   }
 
   async calculateOrderSum(goodsIdsList: UniqueIdentifier[]): Promise<number> {
-    const pizzas = await this.findGoodsListByIdList(goodsIdsList);
+    const goodsList: GoodsOrm[] = [];
+    for (const goodsId of goodsIdsList) {
+      const good = await this.findGoodById(goodsId);
+      if (good) {
+        goodsList.push(good);
+      }
+    }
     let sum = 0;
-    pizzas.forEach((el) => (sum += el.price));
-    return Math.round(sum * 100) / 100;
+    const DELIVERY_PRICE = 5;
+    goodsList.forEach((el) => (sum += el.price));
+    return Math.round((sum + DELIVERY_PRICE) * 100) / 100;
   }
 
   async calculateWaitTime(goodsIdsList: UniqueIdentifier[]): Promise<number> {

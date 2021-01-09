@@ -24,7 +24,7 @@ export default class PartnerEntity extends BaseEntity<PartnerEntity> {
   readonly id: UniqueIdentifier;
   email: string;
   password: string;
-  phone: number;
+  phone: string;
   name?: string = PartnerEntity.defaults.name;
   balance?: number = PartnerEntity.defaults.balance;
   address?: IAddress;

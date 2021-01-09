@@ -3,6 +3,6 @@ export default class CreatePartnerRequest {
     public email: string,
     public pass: string,
     public passRepeat: string,
-    public phone: number
+    public phone: string
   ) {}
 }

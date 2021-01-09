@@ -16,7 +16,7 @@ export default class PartnerRepository implements IPartnerRepository {
   async createUser(
     email: string,
     password: string,
-    phone: number
+    phone: string
   ): Promise<PartnerEntity> {
     const user = this.connection.manager.create(UserOrm, {
       email,

@@ -10,6 +10,8 @@ class OrderPizzaDto {
   id: number;
   @ApiProperty({ type: 'number' })
   counts: number;
+  @ApiProperty({ type: 'string' })
+  name: string;
 }
 
 class AddressDto {
@@ -24,6 +26,8 @@ class AddressDto {
 export default class OrderDto {
   @ApiProperty({ type: 'number' })
   id: number;
+  @ApiProperty({ type: 'string' })
+  phone: string;
   @ApiProperty({ type: [OrderPizzaDto] })
   pizzas: IOrderPizza[];
   @ApiProperty({ type: 'string', required: false })

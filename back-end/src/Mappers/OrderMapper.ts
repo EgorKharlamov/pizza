@@ -3,7 +3,7 @@ import OrderDto from '../Dtos/Objects/OrderDto';
 import OrderOrm from '../Orm/Order.orm';
 import { addressParser } from './PartnerMapper';
 
-const pizzaParser = (pizzasIdList: number[]) => {
+const pizzaParser = (pizzasIdList: string[]) => {
   const pizzasObj: Record<string, number> = {};
   pizzasIdList.forEach((el: any) => {
     if (!pizzasObj[el]) {
@@ -12,7 +12,7 @@ const pizzaParser = (pizzasIdList: number[]) => {
   });
   const result: IOrderPizza[] = [];
   Object.keys(pizzasObj).forEach((key) => {
-    result.push({ id: +key, counts: pizzasObj[key] });
+    result.push({ name: key, counts: pizzasObj[key] });
   });
   return result;
 };
@@ -21,7 +21,7 @@ export default class OrderMapper {
   static ormToDomain(orm: OrderOrm): OrderEntity {
     return OrderEntity.new({
       id: orm.id,
-
+      phone: orm.phone,
       userId: orm.user_id as number,
       pizzas: pizzaParser(JSON.parse(orm.goods_list)),
       comment: orm.comment,
@@ -37,6 +37,7 @@ export default class OrderMapper {
   static domainToDto(order: OrderEntity): OrderDto {
     return {
       id: order.id as number,
+      phone: order.phone,
       pizzas: order.pizzas,
       comment: order.comment,
       address: order.address,

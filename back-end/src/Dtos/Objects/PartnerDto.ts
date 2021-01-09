@@ -15,8 +15,8 @@ export default class PartnerDto {
   id: number;
   @ApiProperty({ type: 'string' })
   email: string;
-  @ApiProperty({ type: 'number' })
-  phone: number;
+  @ApiProperty({ type: 'string' })
+  phone: string;
   @ApiProperty({ type: 'number', required: false })
   balance?: number;
   @ApiProperty({ type: 'string', required: false })

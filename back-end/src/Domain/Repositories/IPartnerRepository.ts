@@ -6,7 +6,7 @@ export default interface IPartnerRepository {
   createUser(
     email: string,
     password: string,
-    phone: number
+    phone: string
   ): Promise<PartnerEntity>;
 
   findUserByEmail(email: string): Promise<PartnerEntity | undefined>;

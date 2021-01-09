@@ -18,6 +18,7 @@ export class OrdersService {
   }
 
   getGetOrdersListUseCase() {
-    return new GetOrdersListUseCase(this.orderRepository);
+    const user = this.req.user || { id: -1 };
+    return new GetOrdersListUseCase(this.orderRepository, user);
   }
 }

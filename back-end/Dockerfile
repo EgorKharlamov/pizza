@@ -1,9 +1,9 @@
 FROM node:alpine
 
 WORKDIR /app
-COPY ./package*.json ./
-RUN npm install
+COPY ./package.json ./
+RUN yarn install
 COPY . .
-RUN npm run build
+RUN yarn run build
 EXPOSE 2310
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "yarn", "run", "start:prod" ]

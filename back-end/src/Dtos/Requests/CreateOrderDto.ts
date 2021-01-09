@@ -19,4 +19,6 @@ export default class CreateOrderDto {
   comment?: string;
   @ApiProperty({ type: AddressDto, required: true })
   address: IAddress;
+  @ApiProperty({ type: 'string', required: true })
+  phone: string;
 }

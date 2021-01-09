@@ -10,6 +10,7 @@ export default class CreateOrderUseCase {
       const order = await this.orderRepository.createOrder(
         request.pizzas,
         request?.address,
+        request.phone,
         request.comment,
         this.user.id
       );

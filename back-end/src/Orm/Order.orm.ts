@@ -19,6 +19,9 @@ export default class OrderOrm extends BaseEntity {
   @Column()
   user_id: number;
 
+  @Column({ type: 'varchar', length: 20 })
+  phone: string;
+
   @Column({ type: 'simple-json' })
   goods_list: string;
 

@@ -54,7 +54,6 @@ export class OrderController {
     @Query() query: GetOrdersListDto
   ) {
     const request = new GetOrdersListRequest(
-      req.user!.id,
       query.page,
       query.limit,
       query.sort,

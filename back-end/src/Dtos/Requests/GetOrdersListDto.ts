@@ -3,9 +3,6 @@ import { OrderStatusType } from '../../Domain/Entities/OrderEntity';
 import { Order } from '../../Domain/types';
 
 export default class GetOrdersListDto {
-  @ApiProperty({ type: 'number' })
-  userId: number;
-
   @ApiProperty({ type: 'number', default: 1 })
   page: number;
 
