@@ -5,17 +5,11 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-      network: host
     ports:
       - '80:80'
-    networks:
-      host:
-      sub-net: 
-        ipv4_address: 192.168.20.5
 
   api:
     restart: always  
-    container_name: api
     build: 
       context: ./back-end
       dockerfile: Dockerfile
@@ -26,50 +20,25 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASS}
       MYSQL_PORT: ${DB_PORT}
-    ports:
-      - '2310:2310'
-    links: 
+    depends_on:
       - mariadb
-    networks:
-      sub-net: 
-        ipv4_address: 192.168.20.2
 
   client:
     build: 
       context: ./front-end
       dockerfile: Dockerfile
-    container_name: client
-    links:
-      - api
-    ports:
-      - '3000:3000'
-    networks:
-      sub-net: 
-        ipv4_address: 192.168.20.3
 
   mariadb:
     image: mariadb:latest
-    container_name: mariadb
     restart: always
-    ports:
-      - ${DB_PORT}:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_TCP_PORT: ${DB_PORT}
     volumes:
       - db:/data/db
-    networks:
-      sub-net: 
-        ipv4_address: ${DB_HOST}
 
 volumes:
   db:
-networks:
-  host:
-  sub-net:
-    internal: true
-    ipam:
-      config: 
-        - subnet: 192.168.20.0/24
