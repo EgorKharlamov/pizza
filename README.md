@@ -10,7 +10,6 @@ ___
 ## How to start:
 - Create and fill ***.env*** in the root project folder following ***.env.example***
 - Create and fill ***ormconfig.js*** in the back-end folder following the ***ormconfig.dist.js***
-- Open ./front-end/src/Api/index.ts and change ***API_SERVER*** value
 - ```docker-compose up```
 ___
 ## What technologies?
