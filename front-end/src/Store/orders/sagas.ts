@@ -11,6 +11,7 @@ import GetOrdersListDto from '../../Api/Dto/Requests/GetOrdersListDto';
 import { ToastActions } from '../toast/actions';
 import { ToastType } from '../toast/types';
 import { ModalActions } from '../modals/actions';
+import IGoods from '../goods/types';
 
 function* sendOrderOrderWorker(action: Action<IOrderDto>) {
   try {
@@ -42,7 +43,17 @@ function* getOrdersHistoryOrderWorker(action: Action<GetOrdersListDto>) {
   } catch (e) { console.log(e); }
 }
 
+function* addGoodToCartOrderWorker(action: Action<IGoods>) {
+  try {
+    const uniqId = uuidv4();
+    yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: `Pizza "${action.payload.name}" successfully added to cart!` }));
+    yield delay(3000);
+    yield put(ToastActions.rmByIdToast(uniqId));
+  } catch (e) { console.log(e); }
+}
+
 export default function* watchUser() {
   yield takeEvery(OrderActions.Type.SEND_ORDER, sendOrderOrderWorker);
   yield takeEvery(OrderActions.Type.GET_ORDERS_HISTORY, getOrdersHistoryOrderWorker);
+  yield takeEvery(OrderActions.Type.ADD_GOOD_TO_CART, addGoodToCartOrderWorker);
 }

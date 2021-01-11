@@ -5,6 +5,7 @@ export default class CreateOrderRequest {
     public pizzas: number[],
     public address: IAddress,
     public phone: string,
+    public email: string,
     public comment?: string
   ) {}
 }

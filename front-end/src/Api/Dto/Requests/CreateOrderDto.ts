@@ -5,4 +5,5 @@ export default interface CreateOrderDto {
   comment: string
   pizzas: number[]
   phone: string
+  email: string
 }

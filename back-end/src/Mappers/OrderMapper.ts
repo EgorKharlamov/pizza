@@ -22,6 +22,7 @@ export default class OrderMapper {
     return OrderEntity.new({
       id: orm.id,
       phone: orm.phone,
+      email: orm.email,
       userId: orm.user_id as number,
       pizzas: pizzaParser(JSON.parse(orm.goods_list)),
       comment: orm.comment,

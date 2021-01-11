@@ -21,4 +21,6 @@ export default class CreateOrderDto {
   address: IAddress;
   @ApiProperty({ type: 'string', required: true })
   phone: string;
+  @ApiProperty({ type: 'string', required: true })
+  email: string;
 }

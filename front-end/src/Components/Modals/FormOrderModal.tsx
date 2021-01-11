@@ -9,7 +9,7 @@ import { IOrderState } from '../../Store/orders/types';
 import { IUserState } from '../../Store/user/types';
 import { InputErrorType } from '../../types';
 import { buildingSchema, roomSchema, streetSchema } from '../../Helpers/Validators/Order';
-import { phoneSchema } from '../../Helpers/Validators/User';
+import { emailSchema, phoneSchema } from '../../Helpers/Validators/User';
 import PhoneInput from '../PhoneInput';
 import Textarea from '../UI/Textarea';
 
@@ -19,17 +19,20 @@ function SignInModal() {
   const user = useSelector<IState, IUserState>((state) => state.user);
 
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [street, setStreet] = useState('');
   const [building, setBuilding] = useState('');
   const [room, setRoom] = useState('');
   const [comment, setComment] = useState('');
 
   const [phoneError, setPhoneError] = useState<InputErrorType | string>(InputErrorType.error);
+  const [emailError, setEmailError] = useState<InputErrorType | string>(InputErrorType.error);
   const [streetError, setStreetError] = useState<InputErrorType | string>(InputErrorType.error);
   const [buildingError, setBuildingError] = useState<InputErrorType | string>(InputErrorType.error);
   const [roomError, setRoomError] = useState<InputErrorType | string>(InputErrorType.error);
 
   const [phoneTimer, setPhoneTimer] = useState<any>();
+  const [emailTimer, setEmailTimer] = useState<any>();
   const [streetTimer, setStreetTimer] = useState<any>();
   const [buildingTimer, setBuildingTimer] = useState<any>();
   const [roomTimer, setRoomTimer] = useState<any>();
@@ -37,6 +40,10 @@ function SignInModal() {
   const onChangePhoneHandler = (val: string) => {
     setPhone(val);
     setPhoneError('');
+  };
+  const onChangeEmailHandler = (val: string) => {
+    setEmail(val);
+    setEmailError('');
   };
   const onChangeStreetHandler = (val: string) => {
     setStreet(val);
@@ -61,6 +68,18 @@ function SignInModal() {
     } else {
       setPhoneError(InputErrorType.success);
       clearTimeout(phoneTimer);
+    }
+  };
+  const validateEmail = () => {
+    const { error } = emailSchema.validate({ email });
+    clearTimeout(emailTimer);
+    if (error?.message && email) {
+      setEmailTimer(setTimeout(() => setEmailError(error.message), 1000));
+    } else if (error?.message && !email) {
+      setEmailError(InputErrorType.error);
+    } else {
+      setEmailError(InputErrorType.success);
+      clearTimeout(emailTimer);
     }
   };
   const validateStreet = () => {
@@ -103,7 +122,8 @@ function SignInModal() {
   const allErrorSuccess = (): boolean => streetError === InputErrorType.success
   && buildingError === InputErrorType.success
   && roomError === InputErrorType.success
-  && phoneError === InputErrorType.success;
+  && phoneError === InputErrorType.success
+  && emailError === InputErrorType.success;
 
   const sendOrder = () => {
     dispatch(OrderActions.sendOrder({
@@ -111,6 +131,7 @@ function SignInModal() {
       address: { street, building, room },
       comment,
       phone: phone.replace(/\D/g, ''),
+      email,
     }));
     dispatch(OrderActions.clearGoodsList());
   };
@@ -133,6 +154,10 @@ function SignInModal() {
     validatePhone();
     return () => clearTimeout(phoneTimer);
   }, [phone, phoneError]);
+  useEffect(() => {
+    validateEmail();
+    return () => clearTimeout(emailTimer);
+  }, [email, emailError]);
   useEffect(() => {
     validateStreet();
     return () => clearTimeout(streetTimer);
@@ -160,6 +185,16 @@ function SignInModal() {
             emitFunc={onChangePhoneHandler}
             error={phoneError}
             tooltip='Phone number'
+          />
+        </div>
+        <div className={s.input}>
+          <Input
+            label='Email'
+            valueDefault={email}
+            type='text'
+            emitFunc={onChangeEmailHandler}
+            error={emailError}
+            tooltip='Your email'
           />
         </div>
         <div className={s.input}>

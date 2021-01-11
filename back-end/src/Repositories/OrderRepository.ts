@@ -16,6 +16,7 @@ export default class OrderRepository implements IOrderRepository {
     goodsIdsList: UniqueIdentifier[],
     address: IAddress,
     phone: string,
+    email: string,
     comment?: string,
     userId?: UniqueIdentifier
   ): Promise<OrderEntity> {
@@ -33,6 +34,7 @@ export default class OrderRepository implements IOrderRepository {
     const order = this.connection.manager.create(OrderOrm, {
       user_id: (userId as number) || -1,
       phone,
+      email,
       goods_list: JSON.stringify(goodsList.map((el) => el.name)),
       comment,
       address: JSON.stringify(address),

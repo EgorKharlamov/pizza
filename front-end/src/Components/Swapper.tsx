@@ -16,7 +16,7 @@ function Swapper() {
   const storedTheme = Theme.getTheme();
 
   const [themeState, setThemeState] = useState(storedTheme || ThemeType.light);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [swapCurrency, setSwapCurrency] = useState<CurrencyType>(CurrencyType.euro);
 
   const setRootTheme = () => {

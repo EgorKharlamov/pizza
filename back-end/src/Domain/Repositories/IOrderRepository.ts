@@ -7,6 +7,7 @@ export default interface IOrderRepository {
     goodsIdsList: UniqueIdentifier[],
     address: IAddress,
     phone: string,
+    email: string,
     comment?: string,
     userId?: UniqueIdentifier
   ): Promise<OrderEntity>;

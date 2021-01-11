@@ -11,6 +11,7 @@ export default class CreateOrderUseCase {
         request.pizzas,
         request?.address,
         request.phone,
+        request.email,
         request.comment,
         this.user.id
       );

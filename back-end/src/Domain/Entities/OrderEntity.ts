@@ -15,6 +15,7 @@ export enum OrderStatusType {
 export default class OrderEntity extends BaseEntity<OrderEntity> {
   readonly id: UniqueIdentifier;
   phone: string;
+  email: string;
   userId: UniqueIdentifier;
   pizzas: IOrderPizza[];
   comment: string;
