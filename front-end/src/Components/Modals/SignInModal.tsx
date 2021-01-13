@@ -6,7 +6,7 @@ import Button from '../UI/Button';
 import { ModalActions } from '../../Store/modals/actions';
 import { InputErrorType, ModalsType } from '../../types';
 import { UserActions } from '../../Store/user/actions';
-import { emailSchema, passSchema } from '../../Helpers/Validators/User';
+import { emailSchema } from '../../Helpers/Validators/User';
 
 function SignInModal() {
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ function SignInModal() {
   const [passError, setPassError] = useState<InputErrorType | string>(InputErrorType.error);
 
   const [emailTimer, setEmailTimer] = useState<any>();
-  const [passTimer, setPassTimer] = useState<any>();
 
   const signIn = () => {
     dispatch(UserActions.signIn({ email, pass }));
@@ -51,27 +50,10 @@ function SignInModal() {
     }
   };
 
-  const validatePass = () => {
-    const { error } = passSchema.validate({ pass });
-    clearTimeout(passTimer);
-    if (error?.message && pass) {
-      setPassTimer(setTimeout(() => setPassError('Invalid password'), 1000));
-    } else if (error?.message && !pass) {
-      setPassError(InputErrorType.error);
-    } else {
-      setPassError(InputErrorType.success);
-      clearTimeout(passTimer);
-    }
-  };
-
   useEffect(() => {
     validateEmail();
     return () => clearTimeout(emailTimer);
   }, [email, emailError]);
-  useEffect(() => {
-    validatePass();
-    return () => clearTimeout(passTimer);
-  }, [pass, passError]);
 
   return (
     <div className={s.container}>
@@ -102,7 +84,7 @@ function SignInModal() {
           <Button
             label='Sign in!'
             clickFunc={signIn}
-            disabled={!(passError === InputErrorType.success
+            disabled={!(pass.length
               && emailError === InputErrorType.success)}
           />
           <Button label='Go to sign up!' clickFunc={goToSignUp} secondary />
