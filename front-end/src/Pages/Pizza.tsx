@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck, faClock, faCoins, faTimesCircle, faTruck,
 } from '@fortawesome/free-solid-svg-icons';
 import { GoodActions } from '../Store/goods/actions';
-import pizza from '../assets/img/pizza.png';
 import s from './Pizza.module.scss';
+import pizza from '../assets/img/pizza.webp';
 import Button from '../Components/UI/Button';
 import { IState } from '../Store';
 import IGoods, { IGoodsState } from '../Store/goods/types';
 import { OrderActions } from '../Store/orders/actions';
 import { IUserState } from '../Store/user/types';
 import { Mathem } from '../Helpers/Mathem';
+import { routesStatic } from '../types';
 
 function Pizza() {
   const params: {id: string} = useParams();
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const good = useSelector<IState, IGoodsState>((state) => state.good);
@@ -71,6 +73,7 @@ function Pizza() {
           </div>
         </section>
         <footer className={s.footer}>
+          <Button label='Goods' clickFunc={() => history.push(routesStatic.goods)} secondary />
           <Button label='Add to cart' clickFunc={addToCartClickHandler} />
         </footer>
       </div>

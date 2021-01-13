@@ -5,19 +5,19 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 15px;
-  left: -85px;
-  bottom: 50%;
+  right: -95px;
+  top: 65px;
   border: 1px solid rgba(#000, .5);
   box-shadow: 0 0 3px 0 $text-color;
-  background-color: $bg-med;
+  background-color: $bg-dark;
   border-radius: 7px;
-  padding: 10px 15px 10px 40px;
+  padding: 10px 40px 10px 25px;
   z-index: 10;
   cursor: pointer;
   transition: $trans;
 
   &.open {
-    left: -25px
+    margin-right: 75px;
   }
 }
 
@@ -33,18 +33,23 @@
 
 @keyframes light {
   0% {
-    box-shadow: 0 0 3px 0 $text-color;
+    box-shadow: 0 0 1px 0 $text-color;
+    right: -95px;
   }
   45% {
-    box-shadow: 0 0 3px 0 $text-color;
+    box-shadow: 0 0 1px 0 $text-color;
+    right: -95px;
   }
   50% {
-    box-shadow: 0 0 12px 3px $text-color;
+    right: -85px;
+    box-shadow: 0 0 3px 1px $text-color;
   }
-  65% {
-    box-shadow: 0 0 3px 0 $text-color;
+  55% {
+    box-shadow: 0 0 1px 0 $text-color;
+    right: -95px;
   }
   100% {
-    box-shadow: 0 0 3px 0 $text-color;
+    box-shadow: 0 0 1px 0 $text-color;
+    right: -95px;
   }
 }

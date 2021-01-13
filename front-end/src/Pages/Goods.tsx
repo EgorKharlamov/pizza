@@ -1,10 +1,13 @@
-import React from 'react';
-import CardsList from '../Components/CardsList';
+import React, { Suspense } from 'react';
+
+const CardsList = React.lazy(() => import('../Components/CardsList'));
 
 function Goods() {
   return (
     <div className='wrapper'>
-      <CardsList />
+      <Suspense fallback={<>Loading...</>}>
+        <CardsList />
+      </Suspense>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 @import '../../styles/vars';
 
 .container {
-  z-index: 99999;
+  z-index: 100;
   position: fixed;
   background-color: rgba(#000, .7);
   display: flex;
@@ -19,7 +19,7 @@
   width: 400px;
   max-height: 100%;
   border-radius: 10px;
-  padding: 50px;
+  padding: 50px 50px 0 50px;
   overflow-y: auto;
   background-color: $bg-light;
   position: relative;

@@ -98,14 +98,14 @@ function SignInModal() {
             tooltip='Your password'
           />
         </div>
-        <div className={s.btn}>
+        <div className={`${s.btn} ${s.twoRows}`}>
           <Button
             label='Sign in!'
             clickFunc={signIn}
             disabled={!(passError === InputErrorType.success
               && emailError === InputErrorType.success)}
           />
-          <Button label='Go to sign up!' clickFunc={goToSignUp} transparent />
+          <Button label='Go to sign up!' clickFunc={goToSignUp} secondary />
         </div>
       </form>
     </div>

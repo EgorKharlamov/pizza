@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Gotham';
+  src: url('../assets/fonts/Gotham/Gotham-Bold.eot');
+  src: local('Gotham Bold'), local('Gotham-Bold'),
+  url('../assets/fonts/Gotham/Gotham-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Gotham/Gotham-Bold.woff2') format('woff2'),
+  url('../assets/fonts/Gotham/Gotham-Bold.woff') format('woff'),
+  url('../assets/fonts/Gotham/Gotham-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('../assets/fonts/Gotham/Gotham-Medium.eot');
+  src: local('Gotham Medium'), local('Gotham-Medium'),
+  url('../assets/fonts/Gotham/Gotham-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Gotham/Gotham-Medium.woff2') format('woff2'),
+  url('../assets/fonts/Gotham/Gotham-Medium.woff') format('woff'),
+  url('../assets/fonts/Gotham/Gotham-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('../assets/fonts/Gotham/Gotham-Thin.eot');
+  src: local('Gotham Thin'), local('Gotham-Thin'),
+  url('../assets/fonts/Gotham/Gotham-Thin.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Gotham/Gotham-Thin.woff2') format('woff2'),
+  url('../assets/fonts/Gotham/Gotham-Thin.woff') format('woff'),
+  url('../assets/fonts/Gotham/Gotham-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPizzaSlice } from '@fortawesome/free-solid-svg-icons/faPizzaSlice';
@@ -33,7 +33,8 @@ function Navbar() {
   };
 
   const location = useLocation();
-  const dropdownOptions = [{ name: 'Logout', functionToEmit: logOut }];
+  const history = useHistory();
+  const dropdownOptions = [{ name: 'Orders history', functionToEmit: () => history.push(routesStatic.ordersHistory) }, { name: 'Logout', functionToEmit: logOut }];
 
   const { cart }: IOrderState = useSelector<IState, IOrderState>((state) => state.order);
   useEffect(() => {

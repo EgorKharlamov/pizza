@@ -12,17 +12,15 @@ import { ToastActions } from '../toast/actions';
 import { ToastType } from '../toast/types';
 import { ModalActions } from '../modals/actions';
 import IGoods from '../goods/types';
+import { ModalsType } from '../../types';
 
 function* sendOrderOrderWorker(action: Action<IOrderDto>) {
   try {
     yield call(requester, ApiOrderEndpoint.createOrder, { ...action.payload });
 
-    const res = yield call(requester, ApiOrderEndpoint.getOrdersList, { page: 1, limit: 1 });
-    yield put(OrderActions.setOrdersHistory(res));
-
     const uniqId = uuidv4();
     yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: 'Successfully send order!' }));
-    yield put(ModalActions.modalToggle(null));
+    yield put(ModalActions.modalToggle(ModalsType.successOrderModal));
 
     yield delay(5000);
     yield put(ToastActions.rmByIdToast(uniqId));

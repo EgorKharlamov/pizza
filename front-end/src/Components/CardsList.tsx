@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import pizza from '../assets/img/pizza.png';
-import Card from './Card';
+import pizza from '../assets/img/pizza.webp';
 import s from './CardsList.module.scss';
 import { routesStatic } from '../types';
 import { GoodActions } from '../Store/goods/actions';
@@ -15,6 +14,8 @@ import { Cart } from '../Helpers/LocalStorage/Cart';
 import { IModifiedCart } from './CartCardsList';
 import { IUserState } from '../Store/user/types';
 import { Mathem } from '../Helpers/Mathem';
+
+const Card = React.lazy(() => import('./Card'));
 
 function CardsList() {
   const dispatch = useDispatch();
@@ -43,25 +44,27 @@ function CardsList() {
 
   return (
     <div className={s.cardsList}>
-      {list.length ? list.map((el) => (
+      {list.map((el) => (
         <div key={el.id}>
-          <Link
-            to={`${routesStatic.goods}/${el.id}`}
-          >
-            <Card
-              img={pizza}
-              title={el.name}
-              description={el.description}
-              price={`${Mathem.roundTwo(el.price * user.currency.coefficient)}${user.currency.current}`}
-            />
-          </Link>
+          <Suspense fallback={<>Loading...</>}>
+            <Link
+              to={`${routesStatic.goods}/${el.id}`}
+            >
+              <Card
+                img={pizza}
+                title={el.name}
+                description={el.description}
+                price={`${Mathem.roundTwo(el.price * user.currency.coefficient)}${user.currency.current}`}
+              />
+            </Link>
+          </Suspense>
           <div className={s.buttons}>
             <Button label='-' clickFunc={() => rmFromCard(el.id)} secondary disabled={getCount(el.id) === 0} />
             <span className={s.count}>{getCount(el.id)}</span>
             <Button label='+' clickFunc={() => addToCard(el)} />
           </div>
         </div>
-      )) : (<>load...</>)}
+      ))}
     </div>
   );
 }

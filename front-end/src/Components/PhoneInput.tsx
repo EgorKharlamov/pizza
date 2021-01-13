@@ -30,18 +30,18 @@ function PhoneInput({
     [s.labelInput]: true,
     [s.error]: error && error !== InputErrorType.success,
   });
-
   return (
     <label className={s.label}>
       <span className={labelTextClassNames}>{label}</span>
       <InputMask
-        mask='+7 (999) 999-99-99'
+        mask='+9 (999) 999-99-99'
         name={label}
         value={valueDefault}
         required
         className={inputClassNames}
         onChange={(e) => emitFunc(e.target.value)}
         onBlur={onBlurHandler}
+        onFocus={() => setFocus(!focus)}
       />
       {!!tooltip && <span className={s.tooltip}>{tooltip}</span>}
       {!!error && error !== InputErrorType.success && <span className={s.errorText}>{error}</span>}

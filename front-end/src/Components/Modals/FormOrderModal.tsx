@@ -231,7 +231,7 @@ function SignInModal() {
             emitFunc={setComment}
           />
         </div>
-        <div className={s.btn}>
+        <div className={`${s.btn} ${s.oneRow}`}>
           <Button label='Send' clickFunc={sendOrder} disabled={!allErrorSuccess()} />
         </div>
       </form>

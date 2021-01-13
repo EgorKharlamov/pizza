@@ -14,6 +14,7 @@ export enum ModalsType {
   signInModal = 'signInModal',
   signUpModal = 'signUpModal',
   formOrderModal = 'formOrderModal',
+  successOrderModal = 'successOrderModal',
 }
 
 export enum InputErrorType {

@@ -1,5 +1,5 @@
 import React from 'react';
-import pizzaPic from '../assets/img/pizza.png';
+import pizzaPic from '../assets/img/pizza.webp';
 import SpecialOffers from '../Components/SpecialOffers';
 
 function Home() {

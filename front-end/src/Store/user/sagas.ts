@@ -18,8 +18,20 @@ function* signUpUserWorker(action: Action<ISignUpDto>) {
     const res = yield call(requester, ApiPartnerEndpoint.signUp, { ...action.payload });
     if (res.id) {
       const uniqId = uuidv4();
-      yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: 'Successfully sign up!' }));
       yield put(ModalActions.modalToggle(null));
+
+      const { access_token } = yield call(requester, ApiPartnerEndpoint.signIn,
+        { email: action.payload.email, pass: action.payload.pass });
+      let user;
+      if (access_token) {
+        Auth.setAuth(access_token);
+        user = yield call(requester, ApiPartnerEndpoint.profile);
+      }
+      if (user?.id) {
+        yield put(UserActions.setUser({ ...user }));
+      }
+
+      yield put(ToastActions.addToast({ id: uniqId, type: ToastType.success, message: 'Successfully sign up! You are logged in now.' }));
       yield delay(5000);
       yield put(ToastActions.rmByIdToast(uniqId));
     }

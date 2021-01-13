@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import CartCardsList from '../Components/CartCardsList';
 import Button from '../Components/UI/Button';
 import { ModalActions } from '../Store/modals/actions';
-import { ModalsType, routesStatic } from '../types';
+import { ModalsType } from '../types';
 import s from './Order.module.scss';
 import { IOrderState } from '../Store/orders/types';
 import { IState } from '../Store';
@@ -15,9 +13,11 @@ import { IGoodsState } from '../Store/goods/types';
 import { OrderActions } from '../Store/orders/actions';
 import { Mathem } from '../Helpers/Mathem';
 
+const CartCardsList = React.lazy(() => import('../Components/CartCardsList'));
+
 function Order() {
   const dispatch = useDispatch();
-  const { cart, list } = useSelector<IState, IOrderState>((state) => state.order);
+  const { cart } = useSelector<IState, IOrderState>((state) => state.order);
   const goods = useSelector<IState, IGoodsState>((state) => state.good);
   const user = useSelector<IState, IUserState>((state) => state.user);
   const openFormOrderModal = () => {
@@ -40,21 +40,18 @@ function Order() {
   return (
     <div className='wrapper'>
       <div className='page'>
-        <div className={s.historyContainer}>
-          {user.id !== -1 && !!list.length && (
-            <Link to={routesStatic.ordersHistory} className={`${s.link}`}>
-              Orders history
-            </Link>
-          ) }
-        </div>
-        <CartCardsList />
+
+        <Suspense fallback={<>Loading...</>}>
+          <CartCardsList />
+        </Suspense>
+
         {cart.length ? (
           <>
-            <div
-              className={s.price}
-              onClick={() => toggleIsOpenPrice(!isOpenPrice)}
-            >
-              <div className={s.priceContainer}>
+            <div className={s.price}>
+              <div
+                className={s.priceContainer}
+                onClick={() => toggleIsOpenPrice(!isOpenPrice)}
+              >
                 <h2 className={s.priceTitle}>
                   <p className={s.priceTitleText}>Total price:</p>
                   <p className={s.priceTitleVal}>

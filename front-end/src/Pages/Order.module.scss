@@ -22,11 +22,14 @@
   display: grid;
   justify-content: flex-end;
   padding: 0 50px;
-  cursor: pointer;
 
-  &Container:hover {
-    .priceTitleVal, .priceSubVal {
-      color: $accent;
+  &Container {
+    cursor: pointer;
+
+    :hover {
+      .priceTitleVal, .priceSubVal {
+        color: $accent;
+      }
     }
   }
 

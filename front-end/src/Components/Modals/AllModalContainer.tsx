@@ -11,6 +11,7 @@ import s from './AllModalContainer.module.scss';
 import { ModalActions } from '../../Store/modals/actions';
 import { IUserState } from '../../Store/user/types';
 import FormOrderModal from './FormOrderModal';
+import SuccessOrder from './SuccessOrder';
 
 function AllModalContainer() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function AllModalContainer() {
           {type === ModalsType.signInModal && <SignInModal />}
           {type === ModalsType.signUpModal && <SignUpModal />}
           {type === ModalsType.formOrderModal && <FormOrderModal />}
+          {type === ModalsType.successOrderModal && <SuccessOrder />}
         </div>
       </div>
       )}

@@ -1,4 +1,5 @@
 @import "functions";
+@import "fonts";
 
 body {
   font-size: 16px;
@@ -6,4 +7,5 @@ body {
   color: alpha(--color-text-main);
   overflow-x: hidden;
   min-width: 350px;
+  font-family: Gotham;
 }

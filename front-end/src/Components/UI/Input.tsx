@@ -11,9 +11,10 @@ export interface IInput {
   emitFunc: Function
   validateOnBlur?: Function
   tooltip?: string
+  disable?: boolean
 }
 function Input({
-  type = 'text', valueDefault, label, emitFunc, error, validateOnBlur, tooltip,
+  type = 'text', valueDefault, label, emitFunc, error, validateOnBlur, tooltip, disable,
 }: IInput) {
   const [focus, setFocus] = useState(false);
 
@@ -43,6 +44,7 @@ function Input({
         onFocus={() => setFocus(!focus)}
         onBlur={onBlurHandler}
         onChange={onChangeHandler}
+        disabled={disable}
       />
       {!!tooltip && <span className={s.tooltip}>{tooltip}</span>}
       {!!error && error !== InputErrorType.success && <span className={s.errorText}>{error}</span>}

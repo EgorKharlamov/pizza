@@ -167,7 +167,8 @@ function SignUpModal() {
             type='password'
             emitFunc={onChangePassRepeatHandler}
             error={passRepeatError}
-            tooltip='Repeat password'
+            tooltip={!pass || passError !== InputErrorType.success ? 'Fill password field' : 'Repeat password'}
+            disable={!pass || passError !== InputErrorType.success}
           />
         </div>
         <div className={s.input}>
@@ -180,13 +181,13 @@ function SignUpModal() {
           />
         </div>
 
-        <div className={s.btn}>
+        <div className={`${s.btn} ${s.twoRows}`}>
           <Button
             label='Sign up!'
             clickFunc={signUp}
             disabled={!allErrorSuccess()}
           />
-          <Button label='Go to sign in!' clickFunc={goToSignIn} transparent />
+          <Button label='Go to sign in!' clickFunc={goToSignIn} secondary />
         </div>
       </form>
     </div>
