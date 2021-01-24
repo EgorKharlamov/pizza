@@ -6,7 +6,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     ports:
-      - '80:80'
+      - '3000:80'
 
   api:
     restart: always  
@@ -27,6 +27,8 @@ services:
     build: 
       context: ./front-end
       dockerfile: Dockerfile
+    environment:
+      API_URL: ${API_URL}
 
   mariadb:
     image: mariadb:latest

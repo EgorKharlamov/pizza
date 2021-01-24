@@ -12,16 +12,18 @@ export interface IButton {
   icon?: IconDefinition
   disabled?: boolean
   clickFunc: Function
+  thin?: boolean
 }
 
 function Button({
-  label, clickFunc, primary = true, secondary, transparent, icon, disabled,
+  label, clickFunc, primary = true, secondary, transparent, icon, disabled, thin,
 }: IButton) {
   const classButton = classNames({
     [s.primary]: primary,
     [s.secondary]: secondary,
     [s.transparent]: transparent,
     [s.buttonWithIcon]: icon,
+    [s.buttonThin]: thin,
     [s.button]: true,
   });
 

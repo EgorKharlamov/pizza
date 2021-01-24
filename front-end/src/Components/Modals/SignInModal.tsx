@@ -87,7 +87,7 @@ function SignInModal() {
             disabled={!(pass.length
               && emailError === InputErrorType.success)}
           />
-          <Button label='Go to sign up!' clickFunc={goToSignUp} secondary />
+          <Button label='Go to sign up!' clickFunc={goToSignUp} transparent thin />
         </div>
       </form>
     </div>

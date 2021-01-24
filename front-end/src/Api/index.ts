@@ -8,7 +8,7 @@ import {
 } from './order';
 import { Auth } from '../Helpers/LocalStorage/Auth';
 
-const API_SERVER = process.env.NODE_ENV === 'development' ? 'http://localhost:2310/' : 'http://192.168.0.9/api/';
+const API_SERVER = process.env.NODE_ENV !== 'development' ? 'http://localhost:2310/' : process.env.REACT_APP_API_URL;
 
 export type ApiEndpoint = ApiPartnerEndpoint | ApiOrderEndpoint
 export type ApiRequestDtos = ApiPartnerRequestDtos & ApiOrderRequestDtos
