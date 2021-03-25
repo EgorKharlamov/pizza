@@ -7,6 +7,7 @@ import { GoodActions } from './actions';
 
 function* getGoodsListWorker() {
   try {
+    // @ts-ignore
     const goodsList = yield call(requester, ApiPartnerEndpoint.getGoods);
     if (goodsList.length) {
       yield put(GoodActions.setGoodsList(goodsList));
@@ -17,6 +18,7 @@ function* getGoodsListWorker() {
 }
 function* getGoodByIdWorker(action: Action<IGetGoodByIdDto>) {
   try {
+    // @ts-ignore
     const good = yield call(requester, ApiPartnerEndpoint.getGoodById,
       { ...action.payload });
     if (good.id) {

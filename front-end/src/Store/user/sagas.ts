@@ -15,6 +15,7 @@ import { ModalActions } from '../modals/actions';
 
 function* signUpUserWorker(action: Action<ISignUpDto>) {
   try {
+    // @ts-ignore
     const res = yield call(requester, ApiPartnerEndpoint.signUp, { ...action.payload });
     if (res.id) {
       const uniqId = uuidv4();
@@ -25,6 +26,7 @@ function* signUpUserWorker(action: Action<ISignUpDto>) {
       let user;
       if (access_token) {
         Auth.setAuth(access_token);
+        // @ts-ignore
         user = yield call(requester, ApiPartnerEndpoint.profile);
       }
       if (user?.id) {
@@ -50,6 +52,7 @@ function* signInUserWorker(action: Action<ISignInDto>) {
     let user;
     if (access_token) {
       Auth.setAuth(access_token);
+      // @ts-ignore
       user = yield call(requester, ApiPartnerEndpoint.profile);
     }
     if (user?.id) {
@@ -71,6 +74,7 @@ function* signInUserWorker(action: Action<ISignInDto>) {
 
 function* getUserUserWorker() {
   try {
+    // @ts-ignore
     const user = yield call(requester, ApiPartnerEndpoint.profile);
     if (user?.id) {
       yield put(UserActions.setUser({ ...user }));

@@ -34,6 +34,7 @@ function* sendOrderOrderWorker(action: Action<IOrderDto>) {
 
 function* getOrdersHistoryOrderWorker(action: Action<GetOrdersListDto>) {
   try {
+    // @ts-ignore
     const res = yield call(requester, ApiOrderEndpoint.getOrdersList, { ...action.payload });
     if (res) {
       yield put(OrderActions.setOrdersHistory(res));
