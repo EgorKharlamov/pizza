@@ -64,7 +64,7 @@ function* signInUserWorker(action: Action<ISignInDto>) {
       yield delay(5000);
       yield put(ToastActions.rmByIdToast(uniqId));
     }
-  } catch (e) {
+  } catch (e: any) {
     const uniqId = uuidv4();
     yield put(ToastActions.addToast({ id: uniqId, type: ToastType.error, message: `Error sign in! ${e.message}` }));
     yield delay(5000);

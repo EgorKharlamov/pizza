@@ -1,4 +1,4 @@
-FROM node:latest as builder
+FROM node:14-buster as builder
 
 RUN apt-get update -qq && apt-get install -y build-essential
 RUN apt-get install -y libpq-dev postgresql-client
