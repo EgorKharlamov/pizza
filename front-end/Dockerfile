@@ -9,10 +9,10 @@ COPY package.json ./
 RUN mkdir -p /app/node_modules/node-sass/vendor/linux-x64-51
 RUN curl -L https://github.com/sass/node-sass/releases/download/v4.5.0/linux-x64-51_binding.node -o ./node_modules/node-sass/vendor/linux-x64-51/binding.node
 
-RUN yarn install
+RUN npm i
 COPY . ./
-RUN yarn run sass:rebuild
-RUN yarn run build
+RUN npm i --legacy-peer-deps
+RUN npm run build
 
 
 #nginx

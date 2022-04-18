@@ -10,7 +10,6 @@ import IGoods, { IGoodsState } from '../Store/goods/types';
 
 export interface CartCardProp {
   id: number
-  img: string
   name: string
   count: number
   price: string

@@ -20,7 +20,9 @@ export interface IModifiedCart {
 
 function CartCardsList() {
   const { cart } = useSelector<IState, IOrderState>((state) => state.order);
-  const { currency: { current, coefficient } } = useSelector<IState, IUserState>((state) => state.user);
+  const { currency: { current, coefficient } } = useSelector<IState, IUserState>(
+    (state) => state.user,
+  );
   const modifiedCart: IModifiedCart = Cart.modifyCart(cart);
 
   return (
@@ -32,7 +34,6 @@ function CartCardsList() {
           count={el.count}
           price={`${Mathem.roundTwo(el.price * coefficient)}${current}`}
           id={el.id}
-          img={el.img}
         />
       ))}
     </div>
