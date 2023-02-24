@@ -13,7 +13,7 @@ export default class OrderRepository implements IOrderRepository {
   constructor(private connection: Connection) {}
 
   async createOrder(
-    goodsIdsList: UniqueIdentifier[],
+    goodsIdsList: number[],
     address: IAddress,
     phone: string,
     email: string,
@@ -47,7 +47,7 @@ export default class OrderRepository implements IOrderRepository {
     return OrderMapper.ormToDomain(order);
   }
 
-  async findGoodById(id: UniqueIdentifier): Promise<GoodsOrm | undefined> {
+  async findGoodById(id: number): Promise<GoodsOrm | undefined> {
     const pizza = await this.connection.manager.findOne(GoodsOrm, {
       where: { id },
     });
@@ -65,7 +65,7 @@ export default class OrderRepository implements IOrderRepository {
     return pizzas;
   }
 
-  async calculateOrderSum(goodsIdsList: UniqueIdentifier[]): Promise<number> {
+  async calculateOrderSum(goodsIdsList: number[]): Promise<number> {
     const goodsList: GoodsOrm[] = [];
     for (const goodsId of goodsIdsList) {
       const good = await this.findGoodById(goodsId);
@@ -87,7 +87,7 @@ export default class OrderRepository implements IOrderRepository {
   }
 
   async getOrders(
-    userId: UniqueIdentifier,
+    userId: number,
     page: number,
     limit: number,
     sort: Order,

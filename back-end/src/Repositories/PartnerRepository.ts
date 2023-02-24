@@ -36,7 +36,7 @@ export default class PartnerRepository implements IPartnerRepository {
       return PartnerMapper.ormToDomain(user);
     }
   }
-  async findUserById(id: UniqueIdentifier): Promise<PartnerEntity | undefined> {
+  async findUserById(id: number): Promise<PartnerEntity | undefined> {
     const user = await this.connection.manager.findOne(UserOrm, {
       where: { id },
     });

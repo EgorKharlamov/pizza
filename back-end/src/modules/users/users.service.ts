@@ -10,7 +10,7 @@ export class UsersService {
     return this.repository.findUserByEmail(email);
   }
 
-  async findById(userId: UniqueIdentifier) {
+  async findById(userId: number) {
     return this.repository.findUserById(userId);
   }
 }
