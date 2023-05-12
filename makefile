@@ -11,4 +11,4 @@ clean-docker-all:
 		docker-compose down && docker rmi -f `docker images -a -q`
 
 db-dev:
-		docker-compose -f dbdev.yml up -d
+		docker compose -f dbdev.yml up -d

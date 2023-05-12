@@ -8,10 +8,11 @@ import { PartnerService } from './modules/partner/partner.service';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrderController } from './Controllers/OrderController';
 import { OrdersService } from './modules/orders/orders.service';
+import config from '../ormconfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(config),
     AuthModule,
     UsersModule,
     PartnerModule,

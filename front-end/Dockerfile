@@ -5,7 +5,8 @@ RUN apt-get install -y libpq-dev postgresql-client
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN mkdir -p /app/node_modules/node-sass/vendor/linux-x64-51
 RUN curl -L https://github.com/sass/node-sass/releases/download/v4.5.0/linux-x64-51_binding.node -o ./node_modules/node-sass/vendor/linux-x64-51/binding.node
 

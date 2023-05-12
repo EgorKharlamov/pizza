@@ -2,8 +2,9 @@ FROM node:14.21-alpine
 
 WORKDIR /app
 COPY ./package.json ./
-RUN yarn install
+COPY ./package-lock.json ./
+RUN npm install
 COPY . .
-RUN yarn run build
+RUN npm run build
 EXPOSE 2310
-CMD [ "yarn", "run", "start:prod" ]
+CMD [ "npm", "run", "start:prod" ]
